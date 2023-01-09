@@ -1,8 +1,10 @@
 package com.banquito.product.associated_service.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+@Document(collection = "associatedService")
 public class AssocietadService {
     
     @Id

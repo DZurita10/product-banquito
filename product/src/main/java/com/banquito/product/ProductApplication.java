@@ -8,7 +8,7 @@ public class ProductApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProductApplication.class, args);
-		while(true){
+		/* while(true){
 			System.out.println("esta funcionando");
 			try {
 				Thread.sleep(4000);
@@ -16,7 +16,7 @@ public class ProductApplication {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		} */
 	}
 
 }
