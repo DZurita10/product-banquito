@@ -22,19 +22,19 @@ public class Product {
     private String name;
     @Field("status")
     private String status;
-    @Field("startDate")
+    @Field("start_date")
     private Date startDate;
-    @Field("endDate")
+    @Field("end_date")
     private Date endDate;
-    @Field("temporalyAccountState")
+    @Field("temporaly_account_state")
     private String temporalyAccountState;
-    @Field("useCheckbook")
+    @Field("use_checkbook")
     private String useCheckbook;
-    @Field("allowTransference")
+    @Field("allow_transference")
     private String allowTransference;
-    @Field("typeClient")
+    @Field("type_client")
     private String typeClient;
-    @Field("minOpeningBalance")
+    @Field("min_opening_balance")
     private String minOpeningBalance;
     //private AssociatedService associatedService;
 
