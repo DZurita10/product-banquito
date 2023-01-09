@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 
-@Document(collation = "request")
+@Document(collation = "request_service")
 public class RequestService {
     @Id
     private String codeRequest;
