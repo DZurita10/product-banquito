@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.banquito.product.associated_service.model.AccountAssociatedServiceParam;
-import com.banquito.product.associated_service.model.AssociatedServiceParam;
 
 public interface AccountAssociatedServiceParamRepository extends MongoRepository<AccountAssociatedServiceParam, Long>{
     List<AccountAssociatedServiceParam> findAll(); 
