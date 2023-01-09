@@ -18,6 +18,6 @@ public class AssocietadServiceController {
 
     @GetMapping("test")
     public String getTest() {
-        return "/product/test";
+        return "/product/test a";
     }
 }
