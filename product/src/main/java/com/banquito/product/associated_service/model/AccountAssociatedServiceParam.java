@@ -3,6 +3,8 @@ package com.banquito.product.associated_service.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -14,8 +16,12 @@ import lombok.NoArgsConstructor;
 @Document(collection = "acount_associated_service_param")
 @NoArgsConstructor
 public class AccountAssociatedServiceParam {
+    @Id
+    private String codeAccountServiceParam;
+    @Indexed(unique = true)
 
 
+    @Field("associated_service_param")
     private AssociatedServiceParam associatedServiceParam;
 
     @Field("status")
