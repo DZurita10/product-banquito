@@ -7,13 +7,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/request-service")
-public class RequestServiceService {
+public class RequestServiceController {
     
 
     @ResponseBody
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String account() {
         return "Hello account";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/request-service/{account}", method = RequestMethod.GET)
+    public String requestAccount(String account) {
+        return "Hello request service " + account;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/request-service/{codeRequest}", method = RequestMethod.GET)
+    public String accountRequest(String codeRequest) {
+        return "Hello request service " + codeRequest;
     }
 
     @ResponseBody
@@ -27,6 +39,7 @@ public class RequestServiceService {
     public String updateStatusRequets() {
         return "New request";
     }
+
 
     
 }
