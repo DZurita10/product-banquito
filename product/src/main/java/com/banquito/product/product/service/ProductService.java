@@ -2,7 +2,7 @@ package com.banquito.product.product.service;
 
 import org.springframework.stereotype.Service;
 
-import com.banquito.product.product.dto.request.ProductRq;
+import com.banquito.product.product.controller.dto.request.ProductRq;
 import com.banquito.product.product.repository.ProductRepository;
 
 @Service

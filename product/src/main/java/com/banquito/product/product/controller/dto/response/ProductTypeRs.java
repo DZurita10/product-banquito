@@ -1,4 +1,4 @@
-package com.banquito.product.product.dto.response;
+package com.banquito.product.product.controller.dto.response;
 
 import java.io.Serializable;
 import java.util.List;
