@@ -1,13 +1,15 @@
 package com.banquito.product.associated_service.model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.Data;
 
 @Document(collection = "associatedService")
 @Data
+
 public class AssocietadService {
     
     @Id
@@ -17,5 +19,7 @@ public class AssocietadService {
     private String paymentMethod;
     private String chargeVat;
     private Double fee;
+
+    private List<AssociatedServiceParam> params;
 
 }

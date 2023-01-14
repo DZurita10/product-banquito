@@ -9,6 +9,5 @@ import com.banquito.product.associated_service.model.AssociatedServiceParam;
 @Repository
 public interface AssociatedServiceParamRepository extends MongoRepository<AssociatedServiceParam, String> {
     List<AssociatedServiceParam> findAll();
-    List<AssociatedServiceParam> findByCodeParam(String codeParam);
 
 }
