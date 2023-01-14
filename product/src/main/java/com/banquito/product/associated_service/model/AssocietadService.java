@@ -4,20 +4,18 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.Data;
+
 @Document(collection = "associatedService")
+@Data
 public class AssocietadService {
     
     @Id
-    private String codeService;
-    @Field(value = "name")
+    private String _id;
     private String name;
-    @Field(value = "allow_payment")
     private String allowPayment;
-    @Field(value = "payment_method")
     private String paymentMethod;
-    @Field(value = "charge_vat")
     private String chargeVat;
-    @Field(value = "fee")
     private Double fee;
 
 }
