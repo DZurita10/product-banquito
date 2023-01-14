@@ -1,27 +1,19 @@
-package com.banquito.product.product.model;
+package com.banquito.product.product.dto.request;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Version;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import com.banquito.product.associated_service.model.AssociatedServiceParam;
+import com.banquito.product.product.model.InterestRate;
+import com.banquito.product.product.model.ProductType;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "product")
-public class Product {
-    @Id
-    private String id;
-    private String codeProduct;
-    @Indexed(unique = true)
-
+public class ProductRq implements Serializable{
     private String name;
     private String status;
     private Date startDate;
@@ -34,8 +26,5 @@ public class Product {
 
     private List<InterestRate> interestRate;
     private List<AssociatedServiceParam> associatedService;
-    private List<ProductType> productType;
-
-    @Version
-    private Long version;
+    private List<ProductType> productType;    
 }
