@@ -1,41 +1,47 @@
 package com.banquito.product.associated_service.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.banquito.product.associated_service.model.AssociatedServiceParam;
+import com.banquito.product.associated_service.model.AssocietadService;
+import com.banquito.product.associated_service.service.AssocietadServiceService;
 
 @Controller
 @RequestMapping("api/associated-service-param")
 public class AssociatedServiceParamController {
     
-    @ResponseBody
-    @RequestMapping(value = "/associated-service-param", method = RequestMethod.GET)
-    public String associatedServiceParam() {
-        return "Hello Service Associated Param";
-    }
+    private final AssocietadServiceService associetadServiceParam;
 
-    @ResponseBody
-    @RequestMapping(value = "/associated-service-param/{valueType}", method = RequestMethod.GET)
-    public String associatedServiceParamType(String valueType) {
-        return "Hello Service Associated Param " + valueType;
-    }
+    
 
-    @ResponseBody
-    @RequestMapping(value = "/associated-service-param/{name}", method = RequestMethod.GET)
-    public String associatedServiceParamName(String name) {
-        return "Hello Service Associated Param" + name;
+    public AssociatedServiceParamController(AssocietadServiceService associetadServiceParam) {
+        this.associetadServiceParam = associetadServiceParam;
     }
 
     @ResponseBody
     @RequestMapping(value = "/associated-service-param", method = RequestMethod.POST)
-    public String insertAssociatedServiceParam() {
-        return "Hello Service Associated Param";
+    public ResponseEntity<String> createAssociatedServiceParam(@RequestBody AssocietadService associetadService) {
+        try{
+            this.associetadServiceParam.createAssociatedServiceParam(associetadService);
+            return ResponseEntity.ok().build();
+        }catch(Exception e){
+            return ResponseEntity.internalServerError().build();
+        }
     }
     
     @ResponseBody
     @RequestMapping(value = "/associated-service-param", method = RequestMethod.PUT)
-    public String updateAssociatedServiceParam() {
-        return "Hello Service Associated Param";
-    }
+    public ResponseEntity<String> updateAssociatedServiceParam(
+                                                                @PathVariable String name,
+                                                                @RequestBody AssociatedServiceParam associatedServiceParam) 
+                                                    {
+		this.associetadServiceParam.vincularParam(name, associatedServiceParam);
+		return ResponseEntity.ok("Param's Information updated");
+	}
 }
