@@ -10,5 +10,10 @@ public interface InterestRateRepository extends MongoRepository<InterestRate, Lo
     InterestRate findByCodeInterestRate(String codeInterestRate);
     List<InterestRate> findAll();
     List<InterestRate> findByNameLike(String name);
+    // Find by interest rate log
+    List<InterestRate> findByInterestRateLogValue(Double value);
+    // Find by interest rate log status
+    List<InterestRate> findByInterestRateLogStatus(String status);
+    
 
 }
