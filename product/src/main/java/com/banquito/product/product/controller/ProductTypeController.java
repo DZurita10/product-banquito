@@ -1,23 +1,45 @@
 package com.banquito.product.product.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.banquito.product.product.controller.dto.response.ProductTypeRs;
+import com.banquito.product.product.model.ProductType;
+import com.banquito.product.product.service.ProductTypeService;
+
 @Controller
 @RequestMapping("api/products")
 public class ProductTypeController {
+
+    private final ProductTypeService productTypeService;
+
+    public ProductTypeController(ProductTypeService productTypeService) {
+        this.productTypeService = productTypeService;
+    }
+
     @ResponseBody
     @RequestMapping(value = "/product-type", method = RequestMethod.GET)
-    public String productType() {
-        return "Hello product-type";
+    public List<ProductTypeRs> productType() {
+        List<ProductType> productType = this.productTypeService.findAll();
+        List<ProductTypeRs> productTypeRs = new ArrayList<>();
+        for (ProductType product : productType) {
+            ProductTypeRs productR = new ProductTypeRs();
+            productR.setCodeProductType(product.getCodeProductType());
+            productR.setName(product.getName());
+            productTypeRs.add(productR);
+        }
+        return productTypeRs;
     }
 
     @ResponseBody
     @RequestMapping(value = "/product-type/{nameProductType}", method = RequestMethod.GET)
-    public String product(String nameProductType) {
-        return "Hello product-type " + nameProductType;
+    public ProductTypeRs product(String nameProductType) {
+        return this.productTypeService.getProductTypeByName(nameProductType);
     }
 
     @ResponseBody
@@ -25,5 +47,5 @@ public class ProductTypeController {
     public String insertProductType() {
         return "Hello product-type";
     }
-    
+
 }

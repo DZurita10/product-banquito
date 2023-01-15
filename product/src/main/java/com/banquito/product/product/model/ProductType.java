@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Document(collection = "product_type")
+@Document(collection = "productType")
 @NoArgsConstructor
 public class ProductType {
     @Id

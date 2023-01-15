@@ -8,5 +8,6 @@ import com.banquito.product.product.model.ProductType;
 
 public interface ProductTypeRepository extends MongoRepository<ProductType, Long>{
     List<ProductType> findAll();
-    List<ProductType> findByCodeProductType(String codeProductType);    
+    List<ProductType> findByCodeProductType(String codeProductType);  
+    ProductType findByName(String name);  
 }

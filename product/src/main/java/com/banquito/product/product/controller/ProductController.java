@@ -47,15 +47,27 @@ public class ProductController {
 
     @ResponseBody
     @RequestMapping(value = "/product/{nameProduct}", method = RequestMethod.GET)
-    public String product(String nameProduct) {
-        return "Hello Product " + nameProduct;
+    public ResponseEntity<ProductRs> getProductByName(String nameProduct) {
+        Product products = this.productService.findByName(nameProduct);
+        ProductRs productR = new ProductRs();
+        productR.setCodeProduct(products.getCodeProduct());
+        productR.setName(products.getName());
+        productR.setStatus(products.getStatus());
+        productR.setProductType(products.getProductType());
+        return ResponseEntity.ok(productR);
     }
 
-    @ResponseBody
+  /*   @ResponseBody
     @RequestMapping(value = "/product/{productType}", method = RequestMethod.GET)
-    public String productType(String productType) {
-        return "Hello Product Type " + productType;
-    }
+    public ProductRs productType(String productType) {
+        Product products = this.productService.findByTypeProduct(productType);
+        ProductRs productR = new ProductRs();
+        productR.setCodeProduct(products.getCodeProduct());
+        productR.setName(products.getName());
+        productR.setStatus(products.getStatus());
+        productR.setProductType(products.getProductType());
+        return productR;        
+    } */
 
     @ResponseBody
     @RequestMapping(value = "/product/{status}", method = RequestMethod.GET)

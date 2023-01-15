@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductRsAccount implements Serializable {
     private String codeProduct;
-    private String name;    
+    private String name;
 }

@@ -32,4 +32,12 @@ public class ProductService {
             throw e;
         }
     }
+
+    public Product findByName(String name) {
+        try {
+            return productRepository.findByNameLike(name);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }
