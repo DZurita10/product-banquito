@@ -7,6 +7,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.Builder;
+import lombok.Data;
+
+
+@Data
+@Builder
 public class AccountAssociatedServiceParam {
     
     @Id

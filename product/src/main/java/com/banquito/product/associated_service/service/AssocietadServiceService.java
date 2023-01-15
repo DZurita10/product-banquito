@@ -1,6 +1,5 @@
 package com.banquito.product.associated_service.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -8,14 +7,20 @@ import org.springframework.stereotype.Service;
 import com.banquito.product.associated_service.model.AccountAssociatedServiceParam;
 import com.banquito.product.associated_service.model.AssociatedServiceParam;
 import com.banquito.product.associated_service.model.AssocietadService;
+import com.banquito.product.associated_service.repository.AccountAssociatedServiceParamRepository;
 import com.banquito.product.associated_service.repository.AssocietadServiceRepository;
 
 @Service
 public class AssocietadServiceService {
+  
     private final AssocietadServiceRepository associatedRepository;
+    private final AccountAssociatedServiceParamRepository  paramRepository;
 
-    public AssocietadServiceService(AssocietadServiceRepository associatedRepository) {
+
+    public AssocietadServiceService(AssocietadServiceRepository associatedRepository,
+            AccountAssociatedServiceParamRepository paramRepository) {
         this.associatedRepository = associatedRepository;
+        this.paramRepository = paramRepository;
     }
 
     public List<AssocietadService> findAllAssociatedServices() {
