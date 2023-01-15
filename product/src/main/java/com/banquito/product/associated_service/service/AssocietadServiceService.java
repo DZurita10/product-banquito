@@ -16,11 +16,16 @@ public class AssocietadServiceService {
         this.associatedRepository = associatedRepository;
     }
 
-    public List<AssocietadService> findAllAssociatedServices(){
+    public List<AssocietadService> findAllAssociatedServices() {
         return this.associatedRepository.findAll();
     }
 
-    public void crearAssociatedService(AssocietadService associetadService){
-        this.associatedRepository.save(associetadService);
+    public void crearAssociatedService(AssocietadService associetadService) {
+        try {
+            this.associatedRepository.save(associetadService);
+        } catch (Exception e) {
+            new RuntimeException("Problemas al guardar el servicio asociado:" + e);
+        }
+
     }
 }
