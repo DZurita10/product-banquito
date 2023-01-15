@@ -12,7 +12,7 @@ import com.banquito.product.associated_service.controller.mapper.AccountServiceA
 import com.banquito.product.associated_service.service.AssocietadServiceService;
 
 @Controller
-@RequestMapping("api/account-associated-service-param")
+@RequestMapping("api/accountAssociatedServiceParam")
 public class AccountServiceAssociatedParamController {
 
     private final AssocietadServiceService associetadServiceParam;
@@ -22,7 +22,7 @@ public class AccountServiceAssociatedParamController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/account-associated-service-param", method = RequestMethod.POST)
+    @RequestMapping(value = " ", method = RequestMethod.POST)
     public ResponseEntity<String> createAccountServiceAssociatedParam(@RequestBody AccountServiceAssociatedParamRQ paramRQ){
         try {
             this.associetadServiceParam.createAccountServiceAssociatedParam(AccountServiceAssociatedParamMapper.toAccountParam(paramRQ));

@@ -13,7 +13,7 @@ import com.banquito.product.associated_service.model.AssocietadService;
 import com.banquito.product.associated_service.service.AssocietadServiceService;
 
 @Controller
-@RequestMapping("api/associated-service-param")
+@RequestMapping("api/associatedServiceParam")
 public class AssociatedServiceParamController {
     
     private final AssocietadServiceService associetadServiceParam;
@@ -25,7 +25,7 @@ public class AssociatedServiceParamController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/associatedServiceParam", method = RequestMethod.POST)
+    @RequestMapping(value = " ", method = RequestMethod.POST)
     public ResponseEntity<String> createAssociatedServiceParam(@RequestBody AssocietadService associetadService) {
         try{
             this.associetadServiceParam.createAssociatedServiceParam(associetadService);
@@ -36,7 +36,7 @@ public class AssociatedServiceParamController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/associatedServiceParam", method = RequestMethod.PUT)
+    @RequestMapping(value = "all", method = RequestMethod.PUT)
     public ResponseEntity<String> updateAssociatedServiceParam(@PathVariable String name, @RequestBody AssociatedServiceParam associatedServiceParam) {                                               
 		try {
             this.associetadServiceParam.vincularParam(name, associatedServiceParam);
