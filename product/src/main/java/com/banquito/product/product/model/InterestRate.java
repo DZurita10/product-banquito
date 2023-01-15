@@ -9,7 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Document(collection = "interest_rate")
+@Document(collection = "interestRate")
 @NoArgsConstructor
 public class InterestRate {
     @Id
