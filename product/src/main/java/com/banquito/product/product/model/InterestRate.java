@@ -1,8 +1,9 @@
 package com.banquito.product.product.model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,13 +13,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class InterestRate {
     @Id
-    private String codeInterestRate;
-    @Field("name")
+    private String id;
     private String name;
-    @Field("type")
     private String type;
-    @Field("calc_base")
     private String calcBase;
+
+    List<InterestRateLog> interestRateLog;
 
     
 }

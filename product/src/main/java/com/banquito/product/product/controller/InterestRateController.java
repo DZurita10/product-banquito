@@ -1,49 +1,37 @@
 package com.banquito.product.product.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.banquito.product.product.controller.dto.response.InterestRateRS;
+import com.banquito.product.product.model.InterestRate;
+import com.banquito.product.product.service.InterestRateService;
 
 @Controller
 @RequestMapping("api/interest-rate")
 public class InterestRateController {
 
-    @ResponseBody
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String interestRate() {
-        return "Hello Interest Rate";
+    private InterestRateService interestRateService;
+
+    @GetMapping
+    public ResponseEntity<List<InterestRateRS>> getInterestRates() {
+        List<InterestRateRS> interestRatesRS = new ArrayList<>();
+        List<InterestRate> interestRates = interestRateService.findAll();
+        for (InterestRate interestRate : interestRates) {
+            interestRatesRS.add(this.toInterestRateRS(interestRate));
+        }
+        return ResponseEntity.ok(interestRatesRS);
+
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/interest-rate/{nameInterestRate}", method = RequestMethod.GET)
-    public String interestRate(String nameInterestRate) {
-        return "Hello Interest Rate " + nameInterestRate;
+    InterestRateRS toInterestRateRS(InterestRate interestRate) {
+        return InterestRateRS.builder().id(interestRate.getId()).name(interestRate.getName())
+                .build();
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/interest-rate/{interestRateType}", method = RequestMethod.GET)
-    public String interestRateType(String interestRateType) {
-        return "Hello Interest Rate Type " + interestRateType;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/interest-rate/{status}", method = RequestMethod.GET)
-    public String status(String status) {
-        return "Hello Interest Rate Status " + status;
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/interest-rate", method = RequestMethod.POST)
-    public String insertInterestRate() {
-        return "Hello Interest Rate";
-    }
-    
-    @ResponseBody
-    @RequestMapping(value = "/interest-rate", method = RequestMethod.PUT)
-    public String updateInterestRate() {
-        return "Hello Interest Rate";
-    }
 }
-
