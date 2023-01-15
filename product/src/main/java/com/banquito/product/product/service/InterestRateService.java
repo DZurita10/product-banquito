@@ -15,18 +15,13 @@ public class InterestRateService {
         this.interestRateRepository = interestRateRepository;
     }
 
-    public void saveInterestRate() {
-        // 
-        
-
-    }
 
     // FinfAll
     public List<InterestRate> findAll() {
         return interestRateRepository.findAll();
     }
 
-    
+
 
 
 }
