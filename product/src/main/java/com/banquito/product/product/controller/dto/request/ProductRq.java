@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.banquito.product.associated_service.model.AssociatedServiceParam;
+import com.banquito.product.product.controller.dto.response.ProductTypeRs;
 import com.banquito.product.product.model.InterestRate;
-import com.banquito.product.product.model.ProductType;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +26,5 @@ public class ProductRq implements Serializable{
 
     private List<InterestRate> interestRate;
     private List<AssociatedServiceParam> associatedService;
-    private List<ProductType> productType;    
+    private List<ProductTypeRs> productType;    
 }

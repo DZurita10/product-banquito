@@ -12,17 +12,34 @@ import com.banquito.product.product.repository.ProductRepository;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductTypeService productTypeService;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ProductTypeService productTypeService) {
         this.productRepository = productRepository;
+        this.productTypeService = productTypeService;
     }
-    
+
     public void saveProduct(ProductRq productRq) {
-        productRq.getProductType().forEach(productType -> {
-            productType.getProducts().forEach(product -> {
-                productRepository.save(product);
-            });
-        });
+        try {
+            Product product = new Product();
+            product.setCodeProduct("000022112233");
+            product.setName(productRq.getName());
+            product.setStatus(productRq.getStatus());
+            product.setStartDate(productRq.getStartDate());
+            product.setEndDate(productRq.getEndDate());
+            product.setTemporalyAccountState(productRq.getTemporalyAccountState());
+            product.setUseCheckbook(productRq.getUseCheckbook());
+            product.setAllowTransference(productRq.getAllowTransference());
+            product.setTypeClient(productRq.getTypeClient());
+            product.setMinOpeningBalance(productRq.getMinOpeningBalance());
+            product.setInterestRate(productRq.getInterestRate());
+            product.setAssociatedService(productRq.getAssociatedService());
+            product.setProductType(productRq.getProductType());
+
+            productRepository.save(product);
+        } catch (Exception e) {
+            throw e;
+        }
     }
 
     public List<Product> findAll() {

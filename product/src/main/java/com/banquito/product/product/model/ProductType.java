@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.banquito.product.product.controller.dto.response.ProductRs;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,11 +21,11 @@ public class ProductType {
     @Indexed(unique = true)
 
     private String name;
-    private String nameProductType;
-    private String allowWarnInterest;
+    private String type;
+    private String allowEarnInterest;
     private String allowGenAccState;
     private String temporalyInterest;
 
-    private List<Product> products;
+    private List<ProductRs> products;
 
 }

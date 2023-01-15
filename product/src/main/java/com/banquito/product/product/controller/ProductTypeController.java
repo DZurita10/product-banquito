@@ -31,6 +31,11 @@ public class ProductTypeController {
             ProductTypeRs productR = new ProductTypeRs();
             productR.setCodeProductType(product.getCodeProductType());
             productR.setName(product.getName());
+            productR.setType(product.getType());
+            productR.setAllowEarnInterest(product.getAllowEarnInterest());
+            productR.setAllowGenAccState(product.getAllowGenAccState());
+            productR.setTemporalyInterest(product.getTemporalyInterest());
+            productR.setProducts(product.getProducts());            
             productTypeRs.add(productR);
         }
         return productTypeRs;

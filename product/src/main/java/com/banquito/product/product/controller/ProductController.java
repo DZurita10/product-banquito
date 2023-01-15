@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banquito.product.product.controller.dto.request.ProductRq;
 import com.banquito.product.product.controller.dto.response.ProductRs;
 import com.banquito.product.product.model.Product;
 import com.banquito.product.product.service.ProductService;
@@ -57,18 +58,6 @@ public class ProductController {
         return ResponseEntity.ok(productR);
     }
 
-  /*   @ResponseBody
-    @RequestMapping(value = "/product/{productType}", method = RequestMethod.GET)
-    public ProductRs productType(String productType) {
-        Product products = this.productService.findByTypeProduct(productType);
-        ProductRs productR = new ProductRs();
-        productR.setCodeProduct(products.getCodeProduct());
-        productR.setName(products.getName());
-        productR.setStatus(products.getStatus());
-        productR.setProductType(products.getProductType());
-        return productR;        
-    } */
-
     @ResponseBody
     @RequestMapping(value = "/product/{status}", method = RequestMethod.GET)
     public String status(String status) {
@@ -77,8 +66,8 @@ public class ProductController {
 
     @ResponseBody
     @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public String insertProduct() {
-        return "Hello Product";
+    public void insertProduct(ProductRq productRq) {
+        this.productService.saveProduct(productRq);
     }
     
     @ResponseBody
