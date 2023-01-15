@@ -18,7 +18,7 @@ public class ProductType {
     private String codeProductType;
     @Indexed(unique = true)
 
-    private Product product;
+    private String name;
     private String nameProductType;
     private String allowWarnInterest;
     private String allowGenAccState;

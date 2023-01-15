@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.banquito.product.associated_service.model.AssociatedServiceParam;
+import com.banquito.product.product.controller.dto.response.ProductTypeRs;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,7 +35,7 @@ public class Product {
 
     private List<InterestRate> interestRate;
     private List<AssociatedServiceParam> associatedService;
-    private List<ProductType> productType;
+    private List<ProductTypeRs> productType;
 
     @Version
     private Long version;
