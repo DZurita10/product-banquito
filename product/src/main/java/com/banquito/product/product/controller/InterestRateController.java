@@ -18,6 +18,10 @@ public class InterestRateController {
 
     private InterestRateService interestRateService;
 
+    public InterestRateController(InterestRateService interestRateService) {
+        this.interestRateService = interestRateService;
+    }
+
     @GetMapping
     public ResponseEntity<List<InterestRateRS>> getInterestRates() {
         List<InterestRateRS> interestRatesRS = new ArrayList<>();
