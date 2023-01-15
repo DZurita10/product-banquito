@@ -8,42 +8,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.banquito.product.associated_service.controller.dto.AccountServiceAssociatedParamRQ;
-import com.banquito.product.associated_service.model.AccountAssociatedServiceParam;
+import com.banquito.product.associated_service.controller.mapper.AccountServiceAssociatedParamMapper;
 import com.banquito.product.associated_service.service.AssocietadServiceService;
 
 @Controller
 @RequestMapping("api/account-associated-service-param")
 public class AccountServiceAssociatedParamController {
 
-
     private final AssocietadServiceService associetadServiceParam;
 
-    
- 
     public AccountServiceAssociatedParamController(AssocietadServiceService associetadServiceParam) {
         this.associetadServiceParam = associetadServiceParam;
     }
 
-
-
     @ResponseBody
     @RequestMapping(value = "/account-associated-service-param", method = RequestMethod.POST)
     public ResponseEntity<String> createAccountServiceAssociatedParam(@RequestBody AccountServiceAssociatedParamRQ paramRQ){
- 
         try {
-            this.associetadServiceParam.createAccountServiceAssociatedParam(this.toAccountParam(paramRQ));
+            this.associetadServiceParam.createAccountServiceAssociatedParam(AccountServiceAssociatedParamMapper.toAccountParam(paramRQ));
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
-        }
-        
+        }  
     }
-    
-    AccountAssociatedServiceParam  toAccountParam(AccountServiceAssociatedParamRQ rq){
-        return AccountAssociatedServiceParam.builder()
-                                        .status(rq.getStatus())
-                                        .textValue(rq.getStatus()).build();
-    }
-    
-
 }

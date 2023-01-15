@@ -25,7 +25,7 @@ public class AssociatedServiceParamController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/associated-service-param", method = RequestMethod.POST)
+    @RequestMapping(value = "/associatedServiceParam", method = RequestMethod.POST)
     public ResponseEntity<String> createAssociatedServiceParam(@RequestBody AssocietadService associetadService) {
         try{
             this.associetadServiceParam.createAssociatedServiceParam(associetadService);
@@ -36,7 +36,7 @@ public class AssociatedServiceParamController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "/associated-service-param", method = RequestMethod.PUT)
+    @RequestMapping(value = "/associatedServiceParam", method = RequestMethod.PUT)
     public ResponseEntity<String> updateAssociatedServiceParam(
                                                                 @PathVariable String name,
                                                                 @RequestBody AssociatedServiceParam associatedServiceParam) 
