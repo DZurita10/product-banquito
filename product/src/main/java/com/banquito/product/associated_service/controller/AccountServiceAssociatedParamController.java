@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.banquito.product.associated_service.controller.dto.AccountServiceAssociatedParamRQ;
+import com.banquito.product.associated_service.controller.mapper.AccountServiceAssociatedParamMapper;
 import com.banquito.product.associated_service.service.AssocietadServiceService;
 
 @Controller
