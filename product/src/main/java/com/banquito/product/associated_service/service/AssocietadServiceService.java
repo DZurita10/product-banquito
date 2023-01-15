@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.banquito.product.associated_service.model.AccountAssociatedServiceParam;
+import com.banquito.product.associated_service.model.AssociatedServiceParam;
 import com.banquito.product.associated_service.model.AssocietadService;
 import com.banquito.product.associated_service.repository.AssocietadServiceRepository;
 
@@ -27,5 +29,22 @@ public class AssocietadServiceService {
             new RuntimeException("Problemas al guardar el servicio asociado:" + e);
         }
 
+    }
+
+    public void vincularParam(String name, AssociatedServiceParam param){
+        AssocietadService associetadService = this.associatedRepository.findByName(name).get(0);
+        List<AssociatedServiceParam> auxList = associetadService.getParams();
+        auxList.add(param);
+        associetadService.setParams(auxList);
+        this.associatedRepository.save(associetadService);
+
+    }
+
+    public void createAssociatedServiceParam(AssocietadService param){
+        this.associatedRepository.save(param);
+    }
+
+    public void createAccountServiceAssociatedParam(AccountAssociatedServiceParam param){
+        this.paramRepository.save(param);
     }
 }
