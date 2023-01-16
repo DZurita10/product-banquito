@@ -3,6 +3,7 @@ package com.banquito.product.product.model;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -27,5 +28,7 @@ public class ProductType {
     private String temporalyInterest;
 
     private List<ProductRs> products;
-
+    
+    @Version
+    private Long version;
 }

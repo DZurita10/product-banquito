@@ -26,5 +26,5 @@ public class ProductRq implements Serializable{
 
     private List<InterestRate> interestRate;
     private List<AssociatedServiceParam> associatedService;
-    private List<ProductTypeRs> productType;    
+    private ProductTypeRs productType;    
 }

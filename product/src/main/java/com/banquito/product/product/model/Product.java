@@ -22,7 +22,7 @@ public class Product {
     private String id;
     private String codeProduct;
     @Indexed(unique = true)
-
+    
     private String name;
     private String status;
     private Date startDate;
