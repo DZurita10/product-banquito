@@ -36,10 +36,10 @@ public class AssociatedServiceParamController {
     }
     
     @ResponseBody
-    @RequestMapping(value = "all", method = RequestMethod.PUT)
-    public ResponseEntity<String> updateAssociatedServiceParam(@PathVariable String name, @RequestBody AssociatedServiceParam associatedServiceParam) {                                               
+    @RequestMapping(value = "/all/{code}/{name}/{param}", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateServiceAssoParam(String code,String name, AssociatedServiceParam param) {                                               
 		try {
-            this.associetadServiceParam.vincularParam(name, associatedServiceParam);
+            this.associetadServiceParam.updateServiceAssoParam(code, name, param);
 		    return ResponseEntity.ok("Param's Information updated");
             
         } catch (Exception e) {

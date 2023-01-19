@@ -1,6 +1,7 @@
 package com.banquito.product.associated_service.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,40 @@ public class AssocietadServiceService {
 
     public void createAccountServiceAssociatedParam(AccountAssociatedServiceParam param){
         this.paramRepository.save(param);
+    }
+
+    public void updateServiceAssoParam(String code,String name, AssociatedServiceParam param){
+        //1. Identificar y recuperarlo
+        // servicio al q corresponde
+        // parametro q quiero actualiza
+        // si no existe -> sms de q no existe
+        //2. Configuro> actualizo el param
+        Optional<AssocietadService> associatedServiceOpt =  associatedRepository.findById(code);
+        AssocietadService associatedService;
+        if(associatedServiceOpt.isPresent()){
+            associatedService = associatedServiceOpt.get();
+        } else {
+            throw new RuntimeException("no existe el servicio");
+        }
+
+
+        Integer actualParam = findParamByName(name, associatedService.getParams());  
+        if(actualParam >= 0){
+            associatedService.getParams().get(actualParam).name = param.name;
+            associatedService.getParams().get(actualParam).valueType = param.valueType;
+        }  else {
+            throw new RuntimeException("no existe el parametro");
+        }    
+    }
+
+    
+
+    public Integer findParamByName(String name, List<AssociatedServiceParam> params){
+        int index = 0;
+        for(AssociatedServiceParam param : params){
+            if(param.getName().equals(name)) return index;
+            index++;
+        }
+        return -1;
     }
 }
