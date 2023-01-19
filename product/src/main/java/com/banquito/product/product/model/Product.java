@@ -9,21 +9,18 @@ import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.banquito.product.associated_service.model.AssociatedServiceParam;
-import com.banquito.product.product.controller.dto.response.ProductTypeRs;
-
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+@Builder
 @Document(collection = "product")
 public class Product {
     @Id
     private ObjectId id;
     private String codeProduct;
     @Indexed(unique = true)
-    
+
     private String name;
     private String status;
     private Date startDate;
@@ -34,9 +31,9 @@ public class Product {
     private String typeClient;
     private String minOpeningBalance;
 
-    private List<InterestRate> interestRate;
-    private List<AssociatedServiceParam> associatedService;
-    private List<ProductTypeRs> productType;
+    private List<InterestRateProduct> interestRate;
+    private List<AssociatedServiceProduct> associatedService;
+    private ProductTypeModel productType;
 
     @Version
     private Long version;

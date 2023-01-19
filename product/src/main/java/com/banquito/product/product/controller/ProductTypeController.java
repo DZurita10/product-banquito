@@ -29,7 +29,6 @@ public class ProductTypeController {
         List<ProductTypeRs> productTypeRs = new ArrayList<>();
         for (ProductType product : productType) {
             ProductTypeRs productR = new ProductTypeRs();
-            productR.setCodeProductType(product.getCodeProductType());
             productR.setName(product.getName());
             productR.setType(product.getType());
             productR.setAllowEarnInterest(product.getAllowEarnInterest());
