@@ -35,7 +35,6 @@ public class ProductController {
         List<ProductRs> productRs = new ArrayList<>();
         for(Product product : products) {
             ProductRs productR = new ProductRs();
-            productR.setCodeProduct(product.getCodeProduct());
             productR.setName(product.getName());
             productR.setStatus(product.getStatus());
             productR.setInterestRate(product.getInterestRate());

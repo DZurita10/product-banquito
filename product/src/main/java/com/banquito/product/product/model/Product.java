@@ -3,6 +3,7 @@ package com.banquito.product.product.model;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Document(collection = "product")
 public class Product {
     @Id
-    private String id;
+    private ObjectId id;
     private String codeProduct;
     @Indexed(unique = true)
     

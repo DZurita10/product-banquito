@@ -31,7 +31,7 @@ public class ProductService {
             //String productTypeName = productRq.getProductType().getName();
             //ProductTypeRs productType = productTypeService.getProductTypeByName(productTypeName);
 
-            product.setCodeProduct(generateCodeProduct());
+            //product.setCodeProduct(generateCodeProduct());
             product.setName(productRq.getName());
             product.setStatus(productRq.getStatus());
             product.setStartDate(productRq.getStartDate());
