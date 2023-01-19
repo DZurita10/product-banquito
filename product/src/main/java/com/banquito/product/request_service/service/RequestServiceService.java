@@ -57,7 +57,7 @@ public class RequestServiceService {
             try {
                 this.requestServiceRepository.save(requestService);
             } catch (Exception e) {
-                new RuntimeException("Problemas al guardar la solicitud");
+                new RuntimeException("Problemas al actualizar ");
             }
         } else {
             throw new RuntimeException("La solicitud no existe");
