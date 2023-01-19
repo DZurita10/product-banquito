@@ -31,7 +31,7 @@ public class ProductController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
     public List<ProductRS> findAll() {
         List<Product> product = productService.findAll();
         List<ProductRS> productRs = new ArrayList<>();
@@ -69,7 +69,7 @@ public class ProductController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @RequestMapping(value = "/product", method = RequestMethod.POST)
     public String saveProduct(@RequestBody ProductRQ productRQ) {
         ProductMapperSave productMapperSave = new ProductMapperSave();
         Product product = productMapperSave.toProduct(productRQ);
@@ -78,7 +78,7 @@ public class ProductController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/product", method = RequestMethod.PUT)
     public ResponseEntity<String> updateProduct(String name, String status) {
         Product product = productService.findByName(name);
         return productService.updateProduct(status, product);

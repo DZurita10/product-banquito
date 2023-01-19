@@ -64,12 +64,8 @@ public class ProductService {
 
     public ResponseEntity<String> updateProduct(String status, Product product) {
 
-        String validate = productValidate(product);
         if (productRepository.findByName(product.getName()) == null) {
             return ResponseEntity.badRequest().body("Product not found");
-        }
-        if (validate != "Product validated") {
-            return ResponseEntity.badRequest().body(validate);
         }
 
         try {

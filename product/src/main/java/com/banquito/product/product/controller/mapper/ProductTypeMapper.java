@@ -17,6 +17,7 @@ public class ProductTypeMapper {
                 .allowEarnInterest(product.getAllowEarnInterest())
                 .allowGenAccState(product.getAllowGenAccState())
                 .temporalyInterest(product.getTemporalyInterest())
+                .products(product.getProducts())
                 .build()).collect(Collectors.toList());
 
         return productTypeRs;

@@ -2,7 +2,6 @@ package com.banquito.product.product.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +24,7 @@ public class ProductTypeController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/types", method = RequestMethod.GET)
     public List<ProductTypeRS> findAll() {
 
         List<ProductType> productType = productTypeService.findAll();
@@ -38,10 +37,25 @@ public class ProductTypeController {
 
     }
 
-   /*  @ResponseBody
-    @RequestMapping(value = "/types", method = RequestMethod.GET)
+    @ResponseBody
+    @RequestMapping(value = "/type", method = RequestMethod.GET)
     public ProductTypeRS findById(String id) {
-       
-    } */
+        ProductType productType = productTypeService.findById(id);
+        ProductTypeRS productTypeRS = ProductTypeRS.builder()
+                .id(productType.getId())
+                .name(productType.getName())
+                .type(productType.getType())
+                .allowEarnInterest(productType.getAllowEarnInterest())
+                .allowGenAccState(productType.getAllowGenAccState())
+                .temporalyInterest(productType.getTemporalyInterest())
+                .products(productType.getProducts())
+                .build();
+
+        return productTypeRS;
+    }
+
+    /* @ResponseBody
+    @RequestMapping(value = "/types", method = RequestMethod.POST)
+    public  */
 
 }

@@ -24,7 +24,7 @@ public class ProductType {
     private String allowGenAccState;
     private String temporalyInterest;
 
-    private List<ProductModel> products;
+    private List<ProductModelType> products;
 
     @Version
     private Long version;
