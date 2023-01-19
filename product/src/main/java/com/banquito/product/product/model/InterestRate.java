@@ -3,6 +3,7 @@ package com.banquito.product.product.model;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
@@ -20,5 +21,8 @@ public class InterestRate {
 
     List<InterestRateLog> interestRateLog;
 
+
+    @Version
+    private Long version;
     
 }

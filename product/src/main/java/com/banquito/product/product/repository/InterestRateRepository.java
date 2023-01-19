@@ -10,5 +10,6 @@ public interface InterestRateRepository extends MongoRepository<InterestRate, Lo
     InterestRate findById(String id);
     List<InterestRate> findAll();
     List<InterestRate> findByNameLike(String name);
+    List<InterestRate> findByType(String type);
 
 }
