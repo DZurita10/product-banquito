@@ -1,6 +1,7 @@
 package com.banquito.product.associated_service.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -20,19 +21,20 @@ public class AccountAssociatedServiceParam {
     @Indexed(unique = true)
 
 
-    @Field("associated_service_param")
+
     private AssociatedServiceParam associatedServiceParam;
 
-    @Field("status")
+    private String codeAccount; ///
+   
     private String status;
-    @Field("text_value")
+    
     private String textValue;
-    @Field("date_value")
-    private Date dateValue;
-    @Field("number_value")
+    
+    private LocalDateTime dateValue;
+    
     private BigDecimal numberValue;
-    @Field("create_date")
-    private Date createDate;
-    @Field("end_date")
-    private Date endDate;
+    
+    private LocalDateTime createDate;
+
+    private LocalDateTime endDate;
 }

@@ -55,11 +55,7 @@ public class AssocietadServiceService {
     }
 
     public void updateServiceAssoParam(String code,String name, AssociatedServiceParam param){
-        //1. Identificar y recuperarlo
-        // servicio al q corresponde
-        // parametro q quiero actualiza
-        // si no existe -> sms de q no existe
-        //2. Configuro> actualizo el param
+
         Optional<AssocietadService> associatedServiceOpt =  associatedRepository.findById(code);
         AssocietadService associatedService;
         if(associatedServiceOpt.isPresent()){
@@ -67,7 +63,6 @@ public class AssocietadServiceService {
         } else {
             throw new RuntimeException("no existe el servicio");
         }
-
 
         Integer actualParam = findParamByName(name, associatedService.getParams());  
         if(actualParam >= 0){
@@ -77,8 +72,6 @@ public class AssocietadServiceService {
             throw new RuntimeException("no existe el parametro");
         }    
     }
-
-    
 
     public Integer findParamByName(String name, List<AssociatedServiceParam> params){
         int index = 0;

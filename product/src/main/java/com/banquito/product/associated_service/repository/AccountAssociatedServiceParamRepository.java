@@ -11,5 +11,6 @@ import com.banquito.product.associated_service.model.AccountAssociatedServicePar
 public interface AccountAssociatedServiceParamRepository extends MongoRepository<AccountAssociatedServiceParam, Long>{
     List<AccountAssociatedServiceParam> findAll(); 
     List<AccountAssociatedServiceParam> findByCodeAccountServiceParam(String codeAccountServiceParam);
-    List<AccountAssociatedServiceParam> findByStatus(String status);   
+    List<AccountAssociatedServiceParam> findByStatus(String status);
+   
 }
