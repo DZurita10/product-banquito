@@ -12,6 +12,6 @@ public class ProductTypeRSAccount implements Serializable {
     
         private String codeProductType;
         private String name;
-        List<ProductRsAccount> specializations;     
+        List<ProductRSAccount> specializations;     
     
 }

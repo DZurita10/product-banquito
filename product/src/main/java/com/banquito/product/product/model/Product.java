@@ -18,7 +18,6 @@ import lombok.Data;
 public class Product {
     @Id
     private ObjectId id;
-    private String codeProduct;
     @Indexed(unique = true)
 
     private String name;

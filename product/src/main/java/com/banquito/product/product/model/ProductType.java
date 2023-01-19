@@ -7,8 +7,6 @@ import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.banquito.product.product.controller.dto.response.ProductRs;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +16,6 @@ import lombok.NoArgsConstructor;
 public class ProductType {
     @Id
     private String id;
-    private String codeProductType;
     @Indexed(unique = true)
 
     private String name;
@@ -27,8 +24,8 @@ public class ProductType {
     private String allowGenAccState;
     private String temporalyInterest;
 
-    private List<ProductRs> products;
-    
+    private List<ProductModel> products;
+
     @Version
     private Long version;
 }

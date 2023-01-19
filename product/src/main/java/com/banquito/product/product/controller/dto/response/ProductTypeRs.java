@@ -16,6 +16,6 @@ public class ProductTypeRs implements Serializable {
     private String allowGenAccState;
     private String temporalyInterest;
 
-    private List<ProductRs> products;
+    private List<ProductRS> products;
 
 }
