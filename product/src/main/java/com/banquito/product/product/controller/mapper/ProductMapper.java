@@ -1,20 +1,18 @@
 package com.banquito.product.product.controller.mapper;
 
-import com.banquito.product.product.controller.dto.request.ProductRQ;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.banquito.product.product.controller.dto.response.ProductRS;
 import com.banquito.product.product.model.Product;
 
 public class ProductMapper {
-    public static Product toProduct(ProductRQ productRQ){
-        return Product.builder()
-                .name(productRQ.getName())
-                .status(productRQ.getStatus())
-                .startDate(productRQ.getStartDate())
-                .endDate(productRQ.getEndDate())
-                .temporalyAccountState(productRQ.getTemporalyAccountState())
-                .useCheckbook(productRQ.getUseCheckbook())
-                .allowTransference(productRQ.getAllowTransference())
-                .typeClient(productRQ.getTypeClient())
-                .minOpeningBalance(productRQ.getMinOpeningBalance())
-                .build();
-    }    
+    public List<ProductRS> toProduct(List<Product> products) {
+        List<ProductRS> productRS = products.stream().map(product -> ProductRS.builder()
+                .name(product.getName())
+                .status(product.getStatus())
+                .build()).collect(Collectors.toList());
+
+        return productRS;
+    }
 }

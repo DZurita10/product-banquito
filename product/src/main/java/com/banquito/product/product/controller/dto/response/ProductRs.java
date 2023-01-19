@@ -7,9 +7,8 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ProductRS implements Serializable{
-    private String codeProduct;
+public class ProductRS implements Serializable {
     private String name;
     private String status;
-    
+
 }

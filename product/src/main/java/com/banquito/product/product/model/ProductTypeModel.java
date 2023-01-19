@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class ProductTypeModel {
 
-    private String codeProductType;
+    private String id;
     private String name;
     private String status;
     
