@@ -9,5 +9,7 @@ import lombok.Data;
 @Builder
 public class RequestServiceRQ implements Serializable{
     
-    
+    private String accountNumber;
+    private String fullName;
+    private String nameAssociatedService;
 }

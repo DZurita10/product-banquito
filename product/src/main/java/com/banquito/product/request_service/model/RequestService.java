@@ -18,7 +18,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Document(collection = "requestService")
 public class RequestService {
+    
     @Id
+    private String id;
+
+    @Indexed(unique = true)
     private String codeRequest;
 
     @Indexed(unique = true)

@@ -24,7 +24,7 @@ public class RequestServiceService {
     }
 
     @Transactional
-    public void saveRequestService(RequestService requestService) {
+    public RequestService saveRequestService(RequestService requestService) {
 
         String codeUnique = Utils.generateNumberCode(10);
         requestService.setCodeRequest(codeUnique);
@@ -33,18 +33,24 @@ public class RequestServiceService {
         requestService.setEndDate(null);
         AssocietadService opAssociateService = this.associetadServiceRepository
                 .findItemByName(requestService.getNameAssociatedService());
+
+        
         if (opAssociateService != null) {
             requestService.setNameAssociatedService(opAssociateService.getName());
 
         } else {
-            throw new RuntimeException("El servicio no existe");
+
+            throw new RuntimeException("El servicio no existe" + opAssociateService);
+
         }
 
         try {
             this.requestServiceRepository.save(requestService);
         } catch (Exception e) {
-            new RuntimeException("Problemas al guardar la solicitud");
+            throw new RuntimeException("Problemas al guardar la solicitud");
         }
+
+        return requestService;
     }
 
     @Transactional
@@ -57,7 +63,7 @@ public class RequestServiceService {
             try {
                 this.requestServiceRepository.save(requestService);
             } catch (Exception e) {
-                new RuntimeException("Problemas al actualizar ");
+                throw new RuntimeException("Problemas al actualizar ");
             }
         } else {
             throw new RuntimeException("La solicitud no existe");
