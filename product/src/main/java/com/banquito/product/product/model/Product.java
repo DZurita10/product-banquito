@@ -3,7 +3,6 @@ package com.banquito.product.product.model;
 import java.util.Date;
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -17,7 +16,7 @@ import lombok.Data;
 @Document(collection = "product")
 public class Product {
     @Id
-    private ObjectId id;
+    private String id;
     @Indexed(unique = true)
 
     private String name;
@@ -29,8 +28,7 @@ public class Product {
     private String allowTransference;
     private String typeClient;
     private String minOpeningBalance;
-
-    private List<InterestRateProduct> interestRate;
+    private InterestRateProduct interestRate;
     private List<AssociatedServiceProduct> associatedService;
     private ProductTypeModel productType;
 

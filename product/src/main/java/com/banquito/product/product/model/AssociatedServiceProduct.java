@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AssociatedServiceProduct {
+    private String id;
     private String name;
     private String allowPayment;
     private String paymentMethod;

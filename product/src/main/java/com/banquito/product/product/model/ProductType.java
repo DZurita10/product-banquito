@@ -7,12 +7,12 @@ import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @Document(collection = "productType")
-@NoArgsConstructor
 public class ProductType {
     @Id
     private String id;
@@ -24,7 +24,7 @@ public class ProductType {
     private String allowGenAccState;
     private String temporalyInterest;
 
-    private List<ProductModel> products;
+    private List<ProductModelType> products;
 
     @Version
     private Long version;
