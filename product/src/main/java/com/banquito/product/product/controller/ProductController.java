@@ -44,19 +44,21 @@ public class ProductController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/name", method = RequestMethod.GET)
+    @RequestMapping(value = "/name-product", method = RequestMethod.GET)
     public ProductRS findByName(String name) {
         Product product = productService.findByName(name);
         ProductRS productRS = ProductRS.builder()
+                .id(product.getId())
                 .name(product.getName())
                 .status(product.getStatus())
+                .productType(product.getProductType())
                 .build();
 
         return productRS;
     }
 
     @ResponseBody
-    @RequestMapping(value = "/status", method = RequestMethod.GET)
+    @RequestMapping(value = "/status-product", method = RequestMethod.GET)
     public List<ProductRS> findByStatus(String status) {
         log.info("status: " + status);
         List<Product> product = productService.findByStatus(status);

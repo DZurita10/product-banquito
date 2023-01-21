@@ -9,8 +9,10 @@ import com.banquito.product.product.model.Product;
 public class ProductMapper {
     public List<ProductRS> toProduct(List<Product> products) {
         List<ProductRS> productRS = products.stream().map(product -> ProductRS.builder()
+                .id(product.getId())
                 .name(product.getName())
                 .status(product.getStatus())
+                .productType(product.getProductType())
                 .build()).collect(Collectors.toList());
 
         return productRS;
