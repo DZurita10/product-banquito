@@ -79,13 +79,9 @@ public class ProductService {
     }
 
     public String productValidate(Product product) {
-        if (product.getInterestRate() != null) {
-            for (int i = 0; i < product.getInterestRate().size(); i++) {
-                if (interestRateRepository.findById(product.getInterestRate().get(i).getId()) == null) {
-                    return "Interest rate not found";
-                }
-            }
-        } else {
+        if (product.getInterestRate().getId().isEmpty()) {
+            return "Interest rate not found";
+        } else if (interestRateRepository.findById(product.getInterestRate().getId()) == null) {
             return "Interest rate not found";
         }
         if (product.getAssociatedService() != null) {

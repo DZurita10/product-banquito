@@ -24,7 +24,7 @@ public class ProductRQ implements Serializable {
     private String typeClient;
     private String minOpeningBalance;
 
-    private List<InterestRateProduct> interestRate;
+    private InterestRateProduct interestRate;
     private List<AssociatedServiceProduct> associatedService;
     private ProductTypeModel productType;
 
