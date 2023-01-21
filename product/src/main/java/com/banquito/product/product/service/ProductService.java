@@ -79,19 +79,19 @@ public class ProductService {
     }
 
     public String productValidate(Product product) {
-        if (product.getInterestRate().getId().isEmpty()) {
+        if (product.getInterestRate() == null) {
             return "Interest rate not found";
         } else if (interestRateRepository.findById(product.getInterestRate().getId()) == null) {
             return "Interest rate not found";
         }
-        if (product.getAssociatedService() != null) {
+        if (product.getAssociatedService().isEmpty()) {
+            return "Associated service not found";
+        } else {
             for (int i = 0; i < product.getAssociatedService().size(); i++) {
                 if (associetadServiceRepository.findById(product.getAssociatedService().get(i).getId()) == null) {
                     return "Associated service not found";
                 }
             }
-        } else {
-            return "Associated service not found";
         }
         return "Product validated";
     }
