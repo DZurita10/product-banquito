@@ -6,12 +6,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Document(collection = "interestRate")
-@NoArgsConstructor
+@Builder
 public class InterestRate {
     @Id
     private String id;
@@ -19,7 +19,7 @@ public class InterestRate {
     private String type;
     private String calcBase;
 
-    List<InterestRateLog> interestRateLog;
+    List<InterestRateLog> interestRateLogs;
 
 
     @Version
