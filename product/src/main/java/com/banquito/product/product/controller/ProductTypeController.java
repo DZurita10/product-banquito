@@ -20,6 +20,7 @@ import com.banquito.product.product.service.ProductTypeService;
 
 @Controller
 @RequestMapping("api/product-types")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductTypeController {
 
     private final ProductTypeService productTypeService;
@@ -59,7 +60,6 @@ public class ProductTypeController {
         return productTypeRS;
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @ResponseBody
     @RequestMapping(value = "/types", method = RequestMethod.POST)
     public ResponseEntity<String> save(@RequestBody ProductTypeRQ productTypeRQ) {

@@ -27,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequestMapping("api/products")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductController {
 
     private final ProductService productService;
@@ -84,7 +85,6 @@ public class ProductController {
         return productService.saveProduct(product);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @ResponseBody
     @RequestMapping(value = "/product", method = RequestMethod.PUT)
     public ResponseEntity<String> updateProduct(String name, String status) {

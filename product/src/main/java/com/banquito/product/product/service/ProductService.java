@@ -80,6 +80,7 @@ public class ProductService {
     }
 
     public String productValidate(Product product) {
+
         if (product.getInterestRate() == null) {
             return "Interest rate not found";
         } else if (interestRateRepository.findById(product.getInterestRate().getId()) == null) {
@@ -97,27 +98,30 @@ public class ProductService {
         return "Product validated";
     }
 
-    public void linkAssociatedServices(List<Product> prods, List<AssociatedServiceProduct> services){
-        if(rulesToLink(prods, services)){
-            for(Product prod : prods){
+    public void linkAssociatedServices(List<Product> prods, List<AssociatedServiceProduct> services) {
+        if (rulesToLink(prods, services)) {
+            for (Product prod : prods) {
                 prod.setAssociatedService(services);
                 try {
                     this.productRepository.save(prod);
                 } catch (Exception e) {
                     throw new RuntimeException("error guardando el producto: " + e);
                 }
-                
+
             }
-        }else throw new RuntimeException("Vinculacion no valida por reglas del negocio");
+        } else
+            throw new RuntimeException("Vinculacion no valida por reglas del negocio");
     }
 
-    public boolean rulesToLink(List<Product> prods, List<AssociatedServiceProduct> services){
+    public boolean rulesToLink(List<Product> prods, List<AssociatedServiceProduct> services) {
         boolean band = true;
-        for(Product prod : prods){
-            if(prod.getName().contains("Inversion")) band = false;
-            if(prod.getName().contains("ahorros")){
-                for(AssociatedServiceProduct service : services){
-                    if(service.getName().contains("chequera")) band = false;
+        for (Product prod : prods) {
+            if (prod.getName().contains("Inversion"))
+                band = false;
+            if (prod.getName().contains("ahorros")) {
+                for (AssociatedServiceProduct service : services) {
+                    if (service.getName().contains("chequera"))
+                        band = false;
                 }
             }
         }
