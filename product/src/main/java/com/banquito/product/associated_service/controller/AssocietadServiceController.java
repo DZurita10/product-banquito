@@ -3,6 +3,7 @@ package com.banquito.product.associated_service.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,7 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.product.associated_service.model.AssocietadService;
 import com.banquito.product.associated_service.service.AssocietadServiceService;
 
+
 @RestController
+ @CrossOrigin(origins = "*", methods = { org.springframework.web.bind.annotation.RequestMethod.GET,
+    org.springframework.web.bind.annotation.RequestMethod.POST,
+    org.springframework.web.bind.annotation.RequestMethod.PUT,
+    org.springframework.web.bind.annotation.RequestMethod.DELETE })
 @RequestMapping("/api/product")
 public class AssocietadServiceController {
     
@@ -22,6 +28,7 @@ public class AssocietadServiceController {
         this.associetadServiceServ = associetadServiceRepo;
     }
 
+    
     @ResponseBody
     @RequestMapping(value = "/associatedServices", method = RequestMethod.GET)
     public ResponseEntity<List<AssocietadService>> findAllAssociatedServices() {
