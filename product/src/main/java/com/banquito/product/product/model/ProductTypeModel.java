@@ -12,10 +12,9 @@ public class ProductTypeModel {
     
     public ProductTypeModel() {
     }
-    public ProductTypeModel(String id, String name, String status) {
+    public ProductTypeModel(String id, String name) {
         this.id = id;
         this.name = name;
-        this.status = status;
     }
     
 }
