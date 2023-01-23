@@ -9,6 +9,5 @@ public class ProductTypeModel {
 
     private String id;
     private String name;
-    private String status;
     
 }

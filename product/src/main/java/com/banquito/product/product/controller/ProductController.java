@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -79,6 +80,7 @@ public class ProductController {
         return productService.saveProduct(product);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @ResponseBody
     @RequestMapping(value = "/product", method = RequestMethod.PUT)
     public ResponseEntity<String> updateProduct(String name, String status) {

@@ -49,15 +49,13 @@ public class ProductTypeService {
     }
 
     public ResponseEntity<String> saveProductType(ProductType productType) {
-        if (productType.getProducts().isEmpty()) {
-            return ResponseEntity.ok("Product not found");
-        }else{
-            for (int i = 0; i < productType.getProducts().size(); i++) {
-                if (productRepository.findById(productType.getProducts().get(i).getId()) == null) {
-                    return ResponseEntity.ok("Product not found");
-                }
+
+        for (int i = 0; i < productType.getProducts().size(); i++) {
+            if (productRepository.findById(productType.getProducts().get(i).getId()) == null) {
+                return ResponseEntity.ok("Product not found");
             }
         }
+
         try {
             productTypeRepository.save(productType);
             return ResponseEntity.ok("Product type saved");

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,13 +59,13 @@ public class ProductTypeController {
         return productTypeRS;
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @ResponseBody
     @RequestMapping(value = "/types", method = RequestMethod.POST)
     public ResponseEntity<String> save(@RequestBody ProductTypeRQ productTypeRQ) {
         ProductTypeSaveMapper productTypeMapper = new ProductTypeSaveMapper();
         ProductType productType = productTypeMapper.toProductType(productTypeRQ);
-        productTypeService.saveProductType(productType);
-        return ResponseEntity.ok("ProductType saved");
+        return productTypeService.saveProductType(productType);
     }
 
 }
