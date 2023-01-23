@@ -2,6 +2,7 @@ package com.banquito.product.product.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,8 +16,11 @@ import com.banquito.product.product.controller.dto.request.ProductRQ;
 import com.banquito.product.product.controller.dto.response.ProductRS;
 import com.banquito.product.product.controller.mapper.ProductMapper;
 import com.banquito.product.product.controller.mapper.ProductMapperSave;
+import com.banquito.product.product.model.AssociatedServiceProduct;
 import com.banquito.product.product.model.Product;
 import com.banquito.product.product.service.ProductService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -86,5 +90,24 @@ public class ProductController {
     public ResponseEntity<String> updateProduct(String name, String status) {
         Product product = productService.findByName(name);
         return productService.updateProduct(status, product);
+    }
+
+    //vincular una lista de productos a una lista de servicios
+    //json {"products": [{ArrayList<Products>}],
+    //      "associatedServices": [{ArrayList<Products>}]
+    //      }
+    @ResponseBody
+    @RequestMapping(value = "/product-link-service", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateProduct(@RequestBody Map<String, Object> json) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Product> products = objectMapper.convertValue(json.get("products"), new TypeReference<List<Product>>() {}); 
+        List<AssociatedServiceProduct> services = objectMapper.convertValue(json.get("associatedServices")
+            ,new TypeReference<List<AssociatedServiceProduct>>() {});
+        try {
+            this.productService.linkAssociatedServices(products, services);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.ok("Vinculacion exitosa");
     }
 }
