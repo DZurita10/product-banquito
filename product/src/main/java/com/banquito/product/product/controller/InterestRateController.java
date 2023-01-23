@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,10 @@ import com.banquito.product.product.model.InterestRate;
 import com.banquito.product.product.service.InterestRateService;
 
 @Controller
+@CrossOrigin(origins = "*", methods = { org.springframework.web.bind.annotation.RequestMethod.GET,
+        org.springframework.web.bind.annotation.RequestMethod.POST,
+        org.springframework.web.bind.annotation.RequestMethod.PUT,
+        org.springframework.web.bind.annotation.RequestMethod.DELETE })
 @RequestMapping("api/interest-rate")
 public class InterestRateController {
 
@@ -65,7 +70,6 @@ public class InterestRateController {
         return ResponseEntity.ok(interestRate);
     }
 
-    
     @GetMapping("/name/{name}")
     public ResponseEntity<List<InterestRateReportRS>> getInterestRateByNameContaining(
             @PathVariable("name") String name) {
@@ -79,7 +83,6 @@ public class InterestRateController {
 
         return ResponseEntity.ok(interestRateReportRSs);
     }
- 
 
     @GetMapping("/type/{type}")
     public ResponseEntity<List<InterestRate>> getInterestRateByType(@PathVariable("type") String type) {
@@ -90,7 +93,6 @@ public class InterestRateController {
         return ResponseEntity.ok(interestRates);
     }
 
-    
     @GetMapping("/product/{id}")
     public ResponseEntity<InterestRateProductRS> getProductInterestRate(@PathVariable("id") String id) {
         Optional<InterestRate> interestRate = interestRateService.getInterestRateProduct(id);
@@ -119,7 +121,6 @@ public class InterestRateController {
         }
     }
 
-
     @PostMapping("/add-interest-rate-log")
     public ResponseEntity<String> addInterestRateLog(
             @RequestBody InterestRateRQ interestRateRQ) {
@@ -136,7 +137,8 @@ public class InterestRateController {
     @PutMapping("/update-status")
     public ResponseEntity<String> updateStatus(@RequestBody InterestRateStatusRQ interestRateStatusRQ) {
         try {
-            interestRateService.updateStateInterestRateLog(InterestRateMapper.interestRateStatusRQmapToInterestRate(interestRateStatusRQ));
+            interestRateService.updateStateInterestRateLog(
+                    InterestRateMapper.interestRateStatusRQmapToInterestRate(interestRateStatusRQ));
 
             return ResponseEntity.ok("Estado del interes Actualizado");
         } catch (Exception e) {
@@ -144,6 +146,5 @@ public class InterestRateController {
             return ResponseEntity.badRequest().body("Error al actualizar el estado del interes");
         }
     }
-
 
 }
