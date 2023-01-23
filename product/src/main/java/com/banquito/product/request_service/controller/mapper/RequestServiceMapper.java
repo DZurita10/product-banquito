@@ -1,6 +1,7 @@
 package com.banquito.product.request_service.controller.mapper;
 
 import com.banquito.product.request_service.controller.dto.RequestServiceRQ;
+import com.banquito.product.request_service.controller.dto.RequestServiceRS;
 import com.banquito.product.request_service.model.RequestService;
 
 public class RequestServiceMapper {
@@ -11,5 +12,13 @@ public class RequestServiceMapper {
                 .fullName(requestServiceRQ.getFullName())
                 .nameAssociatedService(requestServiceRQ.getNameAssociatedService()).build();
 
+    }
+
+    public static RequestServiceRS map(RequestService requestService) {
+
+        return RequestServiceRS.builder()
+                .codeRequest(requestService.getCodeRequest())
+                .status(requestService.getStatus())
+                .startDate(requestService.getStartDate()).build();
     }
 }

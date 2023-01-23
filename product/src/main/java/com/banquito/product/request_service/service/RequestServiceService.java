@@ -23,6 +23,22 @@ public class RequestServiceService {
         this.associetadServiceRepository = associetadServiceRepository;
     }
 
+    public RequestService getRequestAssociatedService(String codeRequest){
+
+        Optional<RequestService> opRequestService = this.requestServiceRepository.findByCodeRequest(codeRequest);
+        if (opRequestService.isPresent()) {
+            RequestService requestService = opRequestService.get();
+            try {
+                return requestService;
+            } catch (Exception e) {
+                throw new RuntimeException("No se a encontrado la solicitud");
+            }
+        } else {
+            throw new RuntimeException("La solicitud no existe");
+        }
+        
+    }
+
     @Transactional
     public RequestService saveRequestService(RequestService requestService) {
 
