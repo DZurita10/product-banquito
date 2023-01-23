@@ -34,4 +34,29 @@ public class Product {
 
     @Version
     private Long version;
+
+    public Product() {
+    }
+
+    public Product(String id, String name, String status, Date startDate, Date endDate, String temporalyAccountState,
+            String useCheckbook, String allowTransference, String typeClient, String minOpeningBalance,
+            InterestRateProduct interestRate, List<AssociatedServiceProduct> associatedService,
+            ProductTypeModel productType, Long version) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.temporalyAccountState = temporalyAccountState;
+        this.useCheckbook = useCheckbook;
+        this.allowTransference = allowTransference;
+        this.typeClient = typeClient;
+        this.minOpeningBalance = minOpeningBalance;
+        this.interestRate = interestRate;
+        this.associatedService = associatedService;
+        this.productType = productType;
+        this.version = version;
+    }
+
+    
 }
