@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AssociatedServiceParam {
     
+    
     public String valueType;
     public String name;
 

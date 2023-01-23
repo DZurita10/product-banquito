@@ -47,7 +47,11 @@ public class AssocietadServiceService {
     }
 
     public void createAssociatedServiceParam(AssocietadService param){
-        this.associatedRepository.save(param);
+        try {
+            this.associatedRepository.save(param);
+        } catch (Exception e) {
+            new RuntimeException("Problemas al guardar el servicio asociado:" + e);
+        }
     }
 
     public void createAccountServiceAssociatedParam(AccountAssociatedServiceParam param){

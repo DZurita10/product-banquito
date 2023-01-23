@@ -1,12 +1,10 @@
 package com.banquito.product.associated_service.service;
 
-import java.time.LocalDateTime;
-import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.banquito.product.associated_service.model.AccountAssociatedServiceParam;
 import com.banquito.product.associated_service.model.AssocietadService;
 import com.banquito.product.associated_service.repository.AccountAssociatedServiceParamRepository;
@@ -19,7 +17,7 @@ public class AccountServiceParamService {
     private final AccountAssociatedServiceParamRepository  paramRepository;
     private final AssocietadServiceRepository serviceRepository;
 
-  
+    
 
     public AccountServiceParamService(AccountAssociatedServiceParamRepository paramRepository,
             AssocietadServiceRepository serviceRepository) {
@@ -37,7 +35,14 @@ public class AccountServiceParamService {
     });
     serviceRepository.save(services);
 }); */
+    
+    public Boolean validateAccount(String accountNumber, AccountAssociatedServiceParam codeAccount){
 
+        if(accountNumber.equals(codeAccount)){ 
+            return true;
+        }
+        return false;
+    }
 
 
     @Transactional
@@ -48,7 +53,6 @@ public class AccountServiceParamService {
             service.getParams().forEach(param->{
                 param.getAccount().forEach(account->{
                     if(account.getCodeAccount().equals(codeAccount)){
-                        account.setDateValue(LocalDateTime.now());
                         account.setStatus(status);
                     }
                 });
