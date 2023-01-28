@@ -25,7 +25,7 @@ public class AssociatedServiceParamController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/addparam/{id} ", method = RequestMethod.POST)
+    @RequestMapping(value = "/addparam/{id}", method = RequestMethod.POST)
     public ResponseEntity<String> createAssociatedServiceParam( @PathVariable String id, @RequestBody AssociatedServiceParam param) {
         try{
             this.associetadServiceParam.addParam(id, param);;
