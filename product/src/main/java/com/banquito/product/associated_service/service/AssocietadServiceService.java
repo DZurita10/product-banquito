@@ -1,5 +1,6 @@
 package com.banquito.product.associated_service.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,5 +85,23 @@ public class AssocietadServiceService {
             index++;
         }
         return -1;
+    }
+
+    public void addParam (String id, AssociatedServiceParam param){
+
+        Optional<AssocietadService> associatedId = this.associatedRepository.findById(id);
+        if (!associatedId.isPresent()){
+            throw new RuntimeException("no existe el servicio asociado");
+        }else{
+            if (associatedId.get().getParams()== null){
+                List<AssociatedServiceParam> listParam= new ArrayList<>();
+                listParam.add(param);
+                associatedId.get().setParams(listParam);
+            }else{
+                associatedId.get().getParams().add(param);
+               
+            }
+        }
+        associatedRepository.save(associatedId.get());
     }
 }
