@@ -103,7 +103,10 @@ public class ProductService {
             Product product;
             for (Product prod : prods) {
                 product = this.productRepository.findById(prod.getId());
-                product.setAssociatedService(services);
+                //product.setAssociatedService(services);
+                for(AssociatedServiceProduct service : services){
+                    product.getAssociatedService().add(service);
+                }
                 try {
                     this.productRepository.save(product);
                 } catch (Exception e) {
