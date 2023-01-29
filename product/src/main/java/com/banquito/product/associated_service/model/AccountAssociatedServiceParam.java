@@ -2,11 +2,10 @@ package com.banquito.product.associated_service.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
+
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.Builder;
 import lombok.Data;
