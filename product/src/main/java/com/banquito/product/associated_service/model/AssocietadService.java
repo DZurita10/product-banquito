@@ -21,5 +21,6 @@ public class AssocietadService {
     private Double fee;
 
     private List<AssociatedServiceParam> params;
+    private List<AccountAssociatedServiceParam> accounts;
 
 }

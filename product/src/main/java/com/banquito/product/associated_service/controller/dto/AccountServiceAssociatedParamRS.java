@@ -5,8 +5,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AccountServiceAssociatedParamRQ {
+public class AccountServiceAssociatedParamRS {
     
     private String status;
     private String textValue;
+    
 }

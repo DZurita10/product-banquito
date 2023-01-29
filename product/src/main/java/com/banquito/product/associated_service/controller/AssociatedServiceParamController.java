@@ -45,6 +45,17 @@ public class AssociatedServiceParamController {
     }
     
     @ResponseBody
+    @RequestMapping(value = "/addparam-account/{id}", method = RequestMethod.POST)
+    public ResponseEntity<String> addAccountToparam( @PathVariable String id, @RequestBody AssociatedServiceParam param) {
+        try{
+            this.associetadServiceParam.addAccount(id, param);
+            return ResponseEntity.ok().build();
+        }catch(Exception e){
+            System.err.println(e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+    @ResponseBody
     @RequestMapping(value = "/updateparam/{code}/{name}", method = RequestMethod.PUT)
     public ResponseEntity<String> updateServiceAssoParam(@PathVariable String code, @PathVariable String name, @RequestBody AssociatedServiceParam param) {                                               
 		try {

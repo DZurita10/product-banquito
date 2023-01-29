@@ -9,20 +9,16 @@ import org.springframework.stereotype.Service;
 import com.banquito.product.associated_service.model.AccountAssociatedServiceParam;
 import com.banquito.product.associated_service.model.AssociatedServiceParam;
 import com.banquito.product.associated_service.model.AssocietadService;
-import com.banquito.product.associated_service.repository.AccountAssociatedServiceParamRepository;
 import com.banquito.product.associated_service.repository.AssocietadServiceRepository;
 
 @Service
 public class AssocietadServiceService {
-  
+
     private final AssocietadServiceRepository associatedRepository;
-    private final AccountAssociatedServiceParamRepository  paramRepository;
 
-
-    public AssocietadServiceService(AssocietadServiceRepository associatedRepository,
-            AccountAssociatedServiceParamRepository paramRepository) {
+    public AssocietadServiceService(AssocietadServiceRepository associatedRepository) {
         this.associatedRepository = associatedRepository;
-        this.paramRepository = paramRepository;
+
     }
 
     public List<AssocietadService> findAllAssociatedServices() {
@@ -38,7 +34,7 @@ public class AssocietadServiceService {
 
     }
 
-    public void vincularParam(String name, AssociatedServiceParam param){
+    public void vincularParam(String name, AssociatedServiceParam param) {
         AssocietadService associetadService = this.associatedRepository.findByName(name).get(0);
         List<AssociatedServiceParam> auxList = associetadService.getParams();
         auxList.add(param);
@@ -47,7 +43,7 @@ public class AssocietadServiceService {
 
     }
 
-    public void createAssociatedServiceParam(AssocietadService param){
+    public void createAssociatedServiceParam(AssocietadService param) {
         try {
             this.associatedRepository.save(param);
         } catch (Exception e) {
@@ -55,61 +51,93 @@ public class AssocietadServiceService {
         }
     }
 
-    public void createAccountServiceAssociatedParam(AccountAssociatedServiceParam param){
-        this.paramRepository.save(param);
-    }
+    public void updateServiceAssoParam(String code, String name, AssociatedServiceParam param) {
 
-    public void updateServiceAssoParam(String code,String name, AssociatedServiceParam param){
-
-        Optional<AssocietadService> associatedServiceOpt =  associatedRepository.findById(code);
+        Optional<AssocietadService> associatedServiceOpt = associatedRepository.findById(code);
         AssocietadService associatedService;
-        if(associatedServiceOpt.isPresent()){
+        if (associatedServiceOpt.isPresent()) {
             associatedService = associatedServiceOpt.get();
         } else {
             throw new RuntimeException("no existe el servicio");
         }
 
-        Integer actualParam = findParamByName(name, associatedService.getParams());  
-        if(actualParam >= 0){
+        Integer actualParam = findParamByName(name, associatedService.getParams());
+        if (actualParam >= 0) {
 
             associatedService.getParams().get(actualParam).name = param.name;
             associatedService.getParams().get(actualParam).valueType = param.valueType;
             this.associatedRepository.save(associatedService);
-        }  else {
+        } else {
             throw new RuntimeException("no existe el parametro");
-        }    
+        }
     }
 
-    public Optional<AssocietadService> findByCode(String code){
-       return this.associatedRepository.findById(code);
+    public Optional<AssocietadService> findByCode(String code) {
+        return this.associatedRepository.findById(code);
     }
 
-    public Integer findParamByName(String name, List<AssociatedServiceParam> params){
+    public Integer findParamByName(String name, List<AssociatedServiceParam> params) {
         int index = 0;
-        for(AssociatedServiceParam param : params){
-            if(param.getName().equals(name)) return index;
+        for (AssociatedServiceParam param : params) {
+            if (param.getName().equals(name))
+                return index;
             index++;
         }
         return -1;
     }
 
- 
-
-    public void addParam (String id, AssociatedServiceParam param){
+    public void addParam(String id, AssociatedServiceParam param) {
 
         Optional<AssocietadService> associatedId = this.associatedRepository.findById(id);
-        if (!associatedId.isPresent()){
+        if (!associatedId.isPresent()) {
             throw new RuntimeException("no existe el servicio asociado");
-        }else{
-            if (associatedId.get().getParams()== null){
-                List<AssociatedServiceParam> listParam= new ArrayList<>();
+        } else {
+            if (associatedId.get().getParams() == null) {
+                List<AssociatedServiceParam> listParam = new ArrayList<>();
                 listParam.add(param);
                 associatedId.get().setParams(listParam);
-            }else{
+            } else {
                 associatedId.get().getParams().add(param);
-               
+
             }
         }
         associatedRepository.save(associatedId.get());
     }
+
+    public void addAccount(String id, AssociatedServiceParam param) {
+        System.err.println("id: " + id);
+        System.err.println("param: " + param);
+        try {
+            Optional<AssocietadService> associatedId = this.associatedRepository.findById(id);
+            if (!associatedId.isPresent()) {
+                throw new RuntimeException("no existe el servicio asociado");
+            } else {
+
+                associatedId.get().getParams().forEach(params -> {
+
+                    if (params.getName().equals(param.getName())) {
+                        System.err.println("entro");
+
+                        if (params.getAccount()==null) {
+                            System.err.println("entro2");
+                            List<AccountAssociatedServiceParam> listAccount = new ArrayList<>();
+                            listAccount.add(param.getAccount().get(0));
+                            params.setAccount(listAccount);
+                        } else {
+                            System.err.println("entro3");
+                            params.getAccount().add(param.getAccount().get(0));
+                        }
+                        System.err.println("params: " + params.getAccount());
+
+                    }
+                });
+            }
+
+            associatedRepository.save(associatedId.get());
+        } catch (Exception e) {
+            System.err.println("error: " + e);
+        }
+
+    }
+
 }
