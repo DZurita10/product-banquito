@@ -22,18 +22,15 @@ import com.banquito.product.product.service.ProductService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
-import com.banquito.product.product.model.Product;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("api/products")
 @CrossOrigin(origins = "*", methods = { org.springframework.web.bind.annotation.RequestMethod.GET,
     org.springframework.web.bind.annotation.RequestMethod.POST,
     org.springframework.web.bind.annotation.RequestMethod.PUT,
     org.springframework.web.bind.annotation.RequestMethod.DELETE })
+@RequestMapping("api/products")
 public class ProductController {
 
     private final ProductService productService;
