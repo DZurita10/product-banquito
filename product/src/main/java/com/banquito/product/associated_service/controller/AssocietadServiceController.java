@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.banquito.product.associated_service.model.AssocietadService;
 import com.banquito.product.associated_service.service.AssocietadServiceService;
 
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*", methods = { org.springframework.web.bind.annotation.RequestMethod.GET,
@@ -27,6 +28,7 @@ public class AssocietadServiceController {
         this.associetadServiceServ = associetadServiceRepo;
     }
 
+    
     @ResponseBody
     @RequestMapping(value = "/associatedServices", method = RequestMethod.GET)
     public ResponseEntity<List<AssocietadService>> findAllAssociatedServices() {
