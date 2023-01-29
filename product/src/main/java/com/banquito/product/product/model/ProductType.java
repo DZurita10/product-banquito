@@ -1,30 +1,31 @@
 package com.banquito.product.product.model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@Document(collection = "product_type")
-@NoArgsConstructor
+@Builder
+@Document(collection = "productType")
 public class ProductType {
     @Id
-    private String codeProductType;
+    private String id;
     @Indexed(unique = true)
 
-    @Field("product")
-    private Product product;
-    @Field("name_product_type")
-    private String nameProductType;
-    @Field("allow_warn_interest")
-    private String allowWarnInterest;
-    @Field("allow_gen_acc_state")
+    private String name;
+    private String type;
+    private String allowEarnInterest;
     private String allowGenAccState;
-    @Field("temporaly_interest")
     private String temporalyInterest;
 
+    private List<ProductModelType> products;
+
+    @Version
+    private Long version;
 }

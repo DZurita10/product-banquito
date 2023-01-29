@@ -1,42 +1,62 @@
 package com.banquito.product.product.model;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @Document(collection = "product")
-@NoArgsConstructor
 public class Product {
     @Id
-    private String codeProduct;
+    private String id;
     @Indexed(unique = true)
-    //private InterestRate interest;
-    @Field("name")
+
     private String name;
-    @Field("status")
     private String status;
-    @Field("start_date")
     private Date startDate;
-    @Field("end_date")
     private Date endDate;
-    @Field("temporaly_account_state")
     private String temporalyAccountState;
-    @Field("use_checkbook")
     private String useCheckbook;
-    @Field("allow_transference")
     private String allowTransference;
-    @Field("type_client")
     private String typeClient;
-    @Field("min_opening_balance")
     private String minOpeningBalance;
-    //private AssociatedService associatedService;
+    private InterestRateProduct interestRate;
+    private List<AssociatedServiceProduct> associatedService;
+    private ProductTypeModel productType;
 
+    @Version
+    private Long version;
 
+    public Product() {
+    }
+
+    public Product(String id, String name, String status, Date startDate, Date endDate, String temporalyAccountState,
+            String useCheckbook, String allowTransference, String typeClient, String minOpeningBalance,
+            InterestRateProduct interestRate, List<AssociatedServiceProduct> associatedService,
+            ProductTypeModel productType, Long version) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.temporalyAccountState = temporalyAccountState;
+        this.useCheckbook = useCheckbook;
+        this.allowTransference = allowTransference;
+        this.typeClient = typeClient;
+        this.minOpeningBalance = minOpeningBalance;
+        this.interestRate = interestRate;
+        this.associatedService = associatedService;
+        this.productType = productType;
+        this.version = version;
+    }
+
+    
 }
