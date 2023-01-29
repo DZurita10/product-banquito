@@ -48,7 +48,7 @@ public class RequestServiceService {
         requestService.setStatus(true);
         requestService.setEndDate(null);
         AssocietadService opAssociateService = this.associetadServiceRepository
-                .findItemByName(requestService.getNameAssociatedService());
+                .findByName(requestService.getNameAssociatedService()).get(0);
 
         
         if (opAssociateService != null) {
