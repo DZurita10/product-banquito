@@ -18,22 +18,13 @@ public class AccountAssociatedServiceParam {
     @Id
     private String codeAccountServiceParam;
     @Indexed(unique = true)
-
-
-
+    
     private AssociatedServiceParam associatedServiceParam;
-
     private String codeAccount; ///
-   
     private String status;
-    
     private String textValue;
-    
-    private LocalDateTime dateValue;
-    
-    private BigDecimal numberValue;
-    
+    private LocalDateTime dateValue; 
+    private BigDecimal numberValue;  
     private LocalDateTime createDate;
-
     private LocalDateTime endDate;
 }
