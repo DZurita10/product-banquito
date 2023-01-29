@@ -71,11 +71,17 @@ public class AssocietadServiceService {
 
         Integer actualParam = findParamByName(name, associatedService.getParams());  
         if(actualParam >= 0){
+
             associatedService.getParams().get(actualParam).name = param.name;
             associatedService.getParams().get(actualParam).valueType = param.valueType;
+            this.associatedRepository.save(associatedService);
         }  else {
             throw new RuntimeException("no existe el parametro");
         }    
+    }
+
+    public Optional<AssocietadService> findByCode(String code){
+       return this.associatedRepository.findById(code);
     }
 
     public Integer findParamByName(String name, List<AssociatedServiceParam> params){
@@ -86,6 +92,8 @@ public class AssocietadServiceService {
         }
         return -1;
     }
+
+ 
 
     public void addParam (String id, AssociatedServiceParam param){
 
