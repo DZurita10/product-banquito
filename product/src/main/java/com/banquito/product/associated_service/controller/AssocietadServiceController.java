@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banquito.product.associated_service.model.AssociatedServiceParam;
 import com.banquito.product.associated_service.model.AssocietadService;
 import com.banquito.product.associated_service.service.AssocietadServiceService;
 
@@ -37,6 +39,14 @@ public class AssocietadServiceController {
         else return ResponseEntity.notFound().build();
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/params/{associatedServiceName}", method = RequestMethod.GET)
+    public ResponseEntity<List<AssociatedServiceParam>> getParamsByAssociatedService(@PathVariable String associatedServiceName){
+        List<AssociatedServiceParam> params = this.associetadServiceServ.findParamsByServiceName(associatedServiceName);
+        if(params != null) return ResponseEntity.ok(params);
+        else return ResponseEntity.notFound().build();
+    }
+    
      
     @ResponseBody
     @RequestMapping(value = "/associatedService", method = RequestMethod.POST)

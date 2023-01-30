@@ -31,7 +31,11 @@ public class AssocietadServiceService {
         } catch (Exception e) {
             new RuntimeException("Problemas al guardar el servicio asociado:" + e);
         }
+    }
 
+    public List<AssociatedServiceParam> findParamsByServiceName (String name){
+        List<AssocietadService> service = this.associatedRepository.findByName(name);
+        return service.get(0).getParams();
     }
 
     public void vincularParam(String name, AssociatedServiceParam param) {
@@ -121,7 +125,10 @@ public class AssocietadServiceService {
                         if (params.getAccount()==null) {
                             System.err.println("entro2");
                             List<AccountAssociatedServiceParam> listAccount = new ArrayList<>();
-                            listAccount.add(param.getAccount().get(0));
+                            for(AccountAssociatedServiceParam paramAux : param.getAccount()){
+                                listAccount.add(paramAux);
+                            }
+                            //listAccount.add(param.getAccount().get(0));
                             params.setAccount(listAccount);
                         } else {
                             System.err.println("entro3");
