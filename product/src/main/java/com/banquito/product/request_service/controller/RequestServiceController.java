@@ -1,5 +1,7 @@
 package com.banquito.product.request_service.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.product.request_service.controller.dto.RequestServiceRQ;
@@ -28,6 +30,14 @@ public class RequestServiceController {
 
     public RequestServiceController(RequestServiceService requestServiceService) {
         this.requestServiceService = requestServiceService;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<List<RequestService>> findAllRequestService() {
+        List<RequestService> requestServices = requestServiceService.findAll();
+        if(requestServices != null) return ResponseEntity.ok(requestServices);
+        else return ResponseEntity.notFound().build();
     }
 
     @RequestMapping(value = "/{codeRequest}", method = RequestMethod.GET)

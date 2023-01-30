@@ -1,5 +1,6 @@
 package com.banquito.product.request_service.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +22,15 @@ public class RequestServiceService {
             AssocietadServiceRepository associetadServiceRepository) {
         this.requestServiceRepository = requestServiceRepository;
         this.associetadServiceRepository = associetadServiceRepository;
+    }
+
+    public List<RequestService> findAll() {
+        try {
+            return requestServiceRepository.findAll();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public RequestService getRequestAssociatedService(String codeRequest){
