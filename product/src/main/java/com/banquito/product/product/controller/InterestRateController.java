@@ -29,7 +29,6 @@ import com.banquito.product.product.service.InterestRateService;
     org.springframework.web.bind.annotation.RequestMethod.PUT,
     org.springframework.web.bind.annotation.RequestMethod.DELETE })
 @RequestMapping("api/interest-rate")
-@CrossOrigin(origins = "http://localhost:5173")
 public class InterestRateController {
 
     private InterestRateService interestRateService;
