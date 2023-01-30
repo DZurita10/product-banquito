@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import com.banquito.product.product.service.InterestRateService;
 
 @Controller
 @RequestMapping("api/interest-rate")
+@CrossOrigin(origins = "http://localhost:5173")
 public class InterestRateController {
 
     private InterestRateService interestRateService;

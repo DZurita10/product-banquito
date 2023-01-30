@@ -13,6 +13,7 @@ public class ProductMapper {
                 .name(product.getName())
                 .status(product.getStatus())
                 .productType(product.getProductType())
+                .associatedService(product.getAssociatedService())
                 .build()).collect(Collectors.toList());
 
         return productRS;
