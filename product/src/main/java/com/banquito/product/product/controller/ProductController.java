@@ -95,17 +95,19 @@ public class ProductController {
         return productService.updateProduct(status, product);
     }
 
-    //vincular una lista de productos a una lista de servicios
-    //json {"products": [{ArrayList<Products>}],
-    //      "associatedServices": [{ArrayList<Products>}]
-    //      }
+    // vincular una lista de productos a una lista de servicios
+    // json {"products": [{ArrayList<Products>}],
+    // "associatedServices": [{ArrayList<Products>}]
+    // }
     @ResponseBody
     @RequestMapping(value = "/product-link-service", method = RequestMethod.PUT)
     public ResponseEntity<String> updateProduct(@RequestBody Map<String, Object> json) {
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Product> products = objectMapper.convertValue(json.get("products"), new TypeReference<List<Product>>() {}); 
-        List<AssociatedServiceProduct> services = objectMapper.convertValue(json.get("associatedServices")
-            ,new TypeReference<List<AssociatedServiceProduct>>() {});
+        List<Product> products = objectMapper.convertValue(json.get("products"), new TypeReference<List<Product>>() {
+        });
+        List<AssociatedServiceProduct> services = objectMapper.convertValue(json.get("associatedServices"),
+                new TypeReference<List<AssociatedServiceProduct>>() {
+                });
         try {
             this.productService.linkAssociatedServices(products, services);
         } catch (Exception e) {
