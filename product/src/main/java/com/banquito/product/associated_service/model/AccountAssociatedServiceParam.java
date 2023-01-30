@@ -1,32 +1,20 @@
 package com.banquito.product.associated_service.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Field;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 public class AccountAssociatedServiceParam {
     
-    @Id
-    private String codeAccountServiceParam;
-    @Indexed(unique = true)
-
-
-    @Field("associated_service_param")
-    private AssociatedServiceParam associatedServiceParam;
-
-    @Field("status")
+    private String codeAccount; ///
     private String status;
-    @Field("text_value")
     private String textValue;
-    @Field("date_value")
-    private Date dateValue;
-    @Field("number_value")
-    private BigDecimal numberValue;
-    @Field("create_date")
-    private Date createDate;
-    @Field("end_date")
-    private Date endDate;
+    private LocalDateTime dateValue; 
+    private BigDecimal numberValue;  
+    private LocalDateTime createDate;
+    private LocalDateTime endDate;
 }

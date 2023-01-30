@@ -100,10 +100,15 @@ public class ProductService {
 
     public void linkAssociatedServices(List<Product> prods, List<AssociatedServiceProduct> services) {
         if (rulesToLink(prods, services)) {
+            Product product;
             for (Product prod : prods) {
-                prod.setAssociatedService(services);
+                product = this.productRepository.findById(prod.getId());
+                //product.setAssociatedService(services);
+                for(AssociatedServiceProduct service : services){
+                    product.getAssociatedService().add(service);
+                }
                 try {
-                    this.productRepository.save(prod);
+                    this.productRepository.save(product);
                 } catch (Exception e) {
                     throw new RuntimeException("error guardando el producto: " + e);
                 }

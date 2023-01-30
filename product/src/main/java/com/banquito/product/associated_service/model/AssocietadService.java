@@ -13,7 +13,7 @@ import lombok.Data;
 public class AssocietadService {
     
     @Id
-    private String _id;
+    private String id;
     private String name;
     private String allowPayment;
     private String paymentMethod;
@@ -21,5 +21,6 @@ public class AssocietadService {
     private Double fee;
 
     private List<AssociatedServiceParam> params;
+    private List<AccountAssociatedServiceParam> accounts;
 
 }
