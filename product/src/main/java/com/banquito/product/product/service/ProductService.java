@@ -18,14 +18,12 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ProductTypeRepository productTypeRepository;
     private final InterestRateRepository interestRateRepository;
-    private final AssocietadServiceRepository associetadServiceRepository;
 
     public ProductService(ProductRepository productRepository, ProductTypeRepository productTypeRepository,
             InterestRateRepository interestRateRepository, AssocietadServiceRepository associetadServiceRepository) {
         this.productRepository = productRepository;
         this.productTypeRepository = productTypeRepository;
         this.interestRateRepository = interestRateRepository;
-        this.associetadServiceRepository = associetadServiceRepository;
     }
 
     public List<Product> findAll() {
@@ -48,19 +46,19 @@ public class ProductService {
         }
     }
 
-    public String saveProduct(Product product) {
+    public ResponseEntity<String> saveProduct(Product product) {
 
         String validate = productValidate(product);
         if (validate != "Product validated") {
-            return validate;
+            return ResponseEntity.badRequest().body(validate);
         }
 
         if (productTypeRepository.findById(product.getProductType().getId()) == null) {
-            return "Product type not found";
+            return ResponseEntity.badRequest().body("Product type is required");
         } else {
             try {
                 productRepository.save(product);
-                return "Product saved";
+                return ResponseEntity.ok("Product saved");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -86,20 +84,12 @@ public class ProductService {
     public String productValidate(Product product) {
 
         if (product.getInterestRate() == null) {
-            return "Interest rate not found";
+            return ("Interest rate is required");
         } else if (interestRateRepository.findById(product.getInterestRate().getId()) == null) {
-            return "Interest rate not found";
+            return ("Interest rate is required");
         }
-        if (product.getAssociatedService().isEmpty()) {
-            return "Associated service not found";
-        } else {
-            for (int i = 0; i < product.getAssociatedService().size(); i++) {
-                if (associetadServiceRepository.findById(product.getAssociatedService().get(i).getId()) == null) {
-                    return "Associated service not found";
-                }
-            }
-        }
-        return "Product validated";
+
+        return ("Product validated");
     }
 
     public void linkAssociatedServices(List<Product> prods, List<AssociatedServiceProduct> services) {
@@ -107,8 +97,8 @@ public class ProductService {
             Product product;
             for (Product prod : prods) {
                 product = this.productRepository.findById(prod.getId()).orElse(null);
-                //product.setAssociatedService(services);
-                for(AssociatedServiceProduct service : services){
+                // product.setAssociatedService(services);
+                for (AssociatedServiceProduct service : services) {
                     product.getAssociatedService().add(service);
                 }
                 try {

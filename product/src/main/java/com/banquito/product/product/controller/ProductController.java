@@ -99,7 +99,7 @@ public class ProductController {
 
     @ResponseBody
     @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public String saveProduct(@RequestBody ProductRQ productRQ) {
+    public ResponseEntity<String> saveProduct(@RequestBody ProductRQ productRQ) {
         ProductMapperSave productMapperSave = new ProductMapperSave();
         Product product = productMapperSave.toProduct(productRQ);
 
