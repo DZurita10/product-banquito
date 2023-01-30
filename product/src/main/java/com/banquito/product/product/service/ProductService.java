@@ -32,6 +32,10 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public Product findById(String id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
     public Product findByName(String name) {
         return productRepository.findByName(name);
     }
@@ -102,7 +106,7 @@ public class ProductService {
         if (rulesToLink(prods, services)) {
             Product product;
             for (Product prod : prods) {
-                product = this.productRepository.findById(prod.getId());
+                product = this.productRepository.findById(prod.getId()).orElse(null);
                 //product.setAssociatedService(services);
                 for(AssociatedServiceProduct service : services){
                     product.getAssociatedService().add(service);

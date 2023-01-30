@@ -27,9 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "*", methods = { org.springframework.web.bind.annotation.RequestMethod.GET,
-    org.springframework.web.bind.annotation.RequestMethod.POST,
-    org.springframework.web.bind.annotation.RequestMethod.PUT,
-    org.springframework.web.bind.annotation.RequestMethod.DELETE })
+        org.springframework.web.bind.annotation.RequestMethod.POST,
+        org.springframework.web.bind.annotation.RequestMethod.PUT,
+        org.springframework.web.bind.annotation.RequestMethod.DELETE })
 @RequestMapping("api/products")
 public class ProductController {
 
@@ -37,6 +37,24 @@ public class ProductController {
 
     public ProductController(ProductService productService) {
         this.productService = productService;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/id-product", method = RequestMethod.GET)
+    public ProductRS findById(String id) {
+        Product product = productService.findById(id);
+        if (product == null) {
+            return null;
+        }
+        ProductRS productRS = ProductRS.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .status(product.getStatus())
+                .productType(product.getProductType())
+                .associatedService(product.getAssociatedService())
+                .build();
+
+        return productRS;
     }
 
     @ResponseBody
