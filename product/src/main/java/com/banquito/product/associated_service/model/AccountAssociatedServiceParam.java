@@ -17,4 +17,20 @@ public class AccountAssociatedServiceParam {
     private BigDecimal numberValue;  
     private LocalDateTime createDate;
     private LocalDateTime endDate;
+
+    public AccountAssociatedServiceParam() {
+    }
+    
+    public AccountAssociatedServiceParam(String codeAccount, String status, String textValue, LocalDateTime dateValue,
+            BigDecimal numberValue, LocalDateTime createDate, LocalDateTime endDate) {
+        this.codeAccount = codeAccount;
+        this.status = status;
+        this.textValue = textValue;
+        this.dateValue = dateValue;
+        this.numberValue = numberValue;
+        this.createDate = createDate;
+        this.endDate = endDate;
+    }
+
+    
 }

@@ -1,6 +1,7 @@
 package com.banquito.product.associated_service.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.banquito.product.associated_service.controller.dto.ParamRQ;
 import com.banquito.product.associated_service.model.AssociatedServiceParam;
 import com.banquito.product.associated_service.model.AssocietadService;
 import com.banquito.product.associated_service.service.AssocietadServiceService;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @RestController
@@ -58,13 +62,23 @@ public class AssocietadServiceController {
             return ResponseEntity.internalServerError().build();
         }
     }
-        
-
-    /* @ResponseBody
-    @RequestMapping(value = "/linkAssociatedService", method = RequestMethod.PUT)
-    public String linkProductToAssociatedService(@RequestBody Product Product) {
-        return "TODO linkProductToAssociatedService";
-    } */
+    
+    // Actualiza los datos de los parametros de un servicio asociado
+    // json {"idC": "asd", "paramRQ": [{"name": "par1", "valor": 10 }], "numCuenta": "111"}
+    @ResponseBody
+    @RequestMapping(value = "/save-params-data", method = RequestMethod.PUT)
+    public ResponseEntity<String> updateAccountParam(@RequestBody Map<String, Object> json) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String serviceId = objectMapper.convertValue(json.get("idC"), new TypeReference<String>() {});
+        String numCuenta = objectMapper.convertValue(json.get("numCuenta"), new TypeReference<String>() {});
+        List<ParamRQ> params = objectMapper.convertValue(json.get("paramRQ"), new TypeReference<List<ParamRQ>>() {});
+        try {
+            this.associetadServiceServ.setAccountServiceParams(serviceId, params, numCuenta);
+            return ResponseEntity.ok("Se guardaron los parametros del servicio asociado");
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 
 
 }

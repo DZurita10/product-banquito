@@ -1,11 +1,13 @@
 package com.banquito.product.associated_service.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.banquito.product.associated_service.controller.dto.ParamRQ;
 import com.banquito.product.associated_service.model.AccountAssociatedServiceParam;
 import com.banquito.product.associated_service.model.AssociatedServiceParam;
 import com.banquito.product.associated_service.model.AssocietadService;
@@ -36,6 +38,40 @@ public class AssocietadServiceService {
     public List<AssociatedServiceParam> findParamsByServiceName (String name){
         List<AssocietadService> service = this.associatedRepository.findByName(name);
         return service.get(0).getParams();
+    }
+
+    public void setAccountServiceParams(String serviceName, List<ParamRQ> params, String accountNum){
+        /* System.out.println("el id>");
+        System.out.println(serviceId);
+        System.out.println("el account>");
+        System.out.println(accountNum);
+        System.out.println("el params>");
+        System.out.println(params.get(0).getValue().getClass()); */
+        List<AssocietadService> serviceOpt = this.associatedRepository.findByName(serviceName);
+        if(serviceOpt == null) throw new RuntimeException("No existe el servicio asociado");
+        else {
+            AssocietadService service = serviceOpt.get(0);
+            List<AssociatedServiceParam> listParams = service.getParams();
+            List<AccountAssociatedServiceParam> actualAccountsParams;
+            AccountAssociatedServiceParam accountParam;
+            for(ParamRQ paramRQ: params){
+                for(AssociatedServiceParam param : listParams){
+                    if(paramRQ.getName().equals(param.name)){
+                        accountParam = new AccountAssociatedServiceParam(accountNum, "ACT", paramRQ.getValue(), null, null, null, null);
+                        actualAccountsParams = param.getAccount();
+                        actualAccountsParams.add(accountParam);
+                        param.setAccount(actualAccountsParams);
+                        //break;
+                    }
+                }
+            }
+            service.setParams(listParams);
+            try {
+                this.associatedRepository.save(service);
+            } catch (Exception e) {
+                throw new RuntimeException("error guardando el producto: " + e);
+            }
+        }
     }
 
     public void vincularParam(String name, AssociatedServiceParam param) {
