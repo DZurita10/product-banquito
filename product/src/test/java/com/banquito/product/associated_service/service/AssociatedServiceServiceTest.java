@@ -1,6 +1,7 @@
 package com.banquito.product.associated_service.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -25,77 +26,91 @@ import com.banquito.product.mock.AssociatedServiceMock;
 @SpringBootTest
 public class AssociatedServiceServiceTest {
 
-    @Mock
-    private AssocietadServiceRepository associatedServiceRepository;
+	@Mock
+	private AssocietadServiceRepository associatedServiceRepository;
 
-    @InjectMocks
-    private AssocietadServiceService associatedServiceService;
+	@InjectMocks
+	private AssocietadServiceService associatedServiceService;
 
-    @Test
-    public void testSetAccountServiceParams() {
-        String accountNum = "24389746";
-        AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
-        List<ParamRQ> params = associatedServiceMock.mockListParamRQ();
-        AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
-        List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
-        AssocietadService service = associatedServiceMock.mockAssocietadService(serviceParams);
-        when(associatedServiceRepository.findByName(service.getName())).thenReturn(Arrays.asList(service));
+	@Test
+	public void testSetAccountServiceParams() {
+		String accountNum = "24389746";
+		AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
+		List<ParamRQ> params = associatedServiceMock.mockListParamRQ();
+		AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
+		List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
+		AssocietadService service = associatedServiceMock.mockAssocietadService(serviceParams);
+		when(associatedServiceRepository.findByName(service.getName())).thenReturn(Arrays.asList(service));
 
-        associatedServiceService.setAccountServiceParams(service.getName(), params, accountNum);
+		associatedServiceService.setAccountServiceParams(service.getName(), params, accountNum);
 
-        verify(associatedServiceRepository).save(service);
-        assertEquals(1, param.getAccount().size());
-        AccountAssociatedServiceParam actualAccountParam = param.getAccount().get(0);
-        assertEquals(accountNum, actualAccountParam.getCodeAccount());
-        assertEquals("ACT", actualAccountParam.getStatus());
-        assertEquals("Valor", actualAccountParam.getTextValue());
-    }
+		verify(associatedServiceRepository).save(service);
+		assertEquals(1, param.getAccount().size());
+		AccountAssociatedServiceParam actualAccountParam = param.getAccount().get(0);
+		assertEquals(accountNum, actualAccountParam.getCodeAccount());
+		assertEquals("ACT", actualAccountParam.getStatus());
+		assertEquals("Valor", actualAccountParam.getTextValue());
+	}
 
-    @Test
-    public void testVincularParam() {
-        AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
-        AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
-        List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
-        AssocietadService service = associatedServiceMock.mockAssocietadService(serviceParams);
-        when(associatedServiceRepository.findByName(service.getName())).thenReturn(Arrays.asList(service));
+	@Test
+	public void testVincularParam() {
+		AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
+		AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
+		List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
+		AssocietadService service = associatedServiceMock.mockAssocietadService(serviceParams);
+		when(associatedServiceRepository.findByName(service.getName())).thenReturn(Arrays.asList(service));
 
-        associatedServiceService.vincularParam(service.getName(), param);
+		associatedServiceService.vincularParam(service.getName(), param);
 
-        verify(associatedServiceRepository).save(service);
-        assertEquals(2, serviceParams.size());
-        AssociatedServiceParam firstParam = serviceParams.get(0);
-        assertEquals(param.getName(), firstParam.getName());
-    }
+		verify(associatedServiceRepository).save(service);
+		assertEquals(2, serviceParams.size());
+		AssociatedServiceParam firstParam = serviceParams.get(0);
+		assertEquals(param.getName(), firstParam.getName());
+	}
 
-    @Test
-    public void testCreateAssociatedServiceParam() {
-        AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
-        AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
-        List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
-        AssocietadService service = associatedServiceMock.mockAssocietadService(serviceParams);
-        ArgumentCaptor<AssocietadService> argument = ArgumentCaptor.forClass(AssocietadService.class);
+	@Test
+	public void testCreateAssociatedServiceParam() {
+		AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
+		AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
+		List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
+		AssocietadService service = associatedServiceMock.mockAssocietadService(serviceParams);
+		ArgumentCaptor<AssocietadService> argument = ArgumentCaptor.forClass(AssocietadService.class);
 
-        associatedServiceService.createAssociatedServiceParam(service);
+		associatedServiceService.createAssociatedServiceParam(service);
 
-        verify(associatedServiceRepository, times(1)).save(argument.capture());
-        assertEquals(service, argument.getValue());
-    }
+		verify(associatedServiceRepository, times(1)).save(argument.capture());
+		assertEquals(service, argument.getValue());
+	}
 
-    @Test
-    public void testUpdateServiceAssoParam() {
-        AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
-        AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
-        List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
-        AssocietadService service = associatedServiceMock.mockAssocietadService(serviceParams);
-        AssociatedServiceParam updatedParam = associatedServiceMock.mockAssociatedServiceParam(
-            "Nuevo parámetro", "Nuevo tipo de valor");
-        when(associatedServiceRepository.findById(service.getId())).thenReturn(Optional.of(service));
+	@Test
+	public void testUpdateServiceAssoParam() {
+		AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
+		AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
+		List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
+		AssocietadService service = associatedServiceMock.mockAssocietadService(serviceParams);
+		AssociatedServiceParam updatedParam = associatedServiceMock.mockAssociatedServiceParam(
+				"Nuevo parámetro", "Nuevo tipo de valor");
+		when(associatedServiceRepository.findById(service.getId())).thenReturn(Optional.of(service));
 
-        associatedServiceService.updateServiceAssoParam(service.getId(), param.getName(), updatedParam);
+		associatedServiceService.updateServiceAssoParam(service.getId(), param.getName(), updatedParam);
 
-        verify(associatedServiceRepository, times(1)).findById(service.getId());
-        verify(associatedServiceRepository, times(1)).save(service);
-        assertEquals(updatedParam.getValueType(), service.getParams().get(0).getValueType());
-    }
+		verify(associatedServiceRepository, times(1)).findById(service.getId());
+		verify(associatedServiceRepository, times(1)).save(service);
+		assertEquals(updatedParam.getValueType(), service.getParams().get(0).getValueType());
+	}
+
+	@Test
+	public void testFindByCode() {
+		String code = "Id159";
+		AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
+		AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
+		List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
+		AssocietadService expectedService = associatedServiceMock.mockAssocietadService(serviceParams);
+		when(associatedServiceRepository.findById(code)).thenReturn(Optional.of(expectedService));
+		Optional<AssocietadService> actualService = associatedServiceService.findByCode(code);
+		verify(associatedServiceRepository).findById(code);
+		assertTrue(actualService.isPresent());
+		assertEquals(expectedService, actualService.get());
+	}
 
 }
