@@ -3,10 +3,12 @@ package com.banquito.product.associated_service.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -121,6 +123,62 @@ public class AssociatedServiceServiceTest {
 		Optional<AssocietadService> actualService = associatedServiceService.findByCode(code);
 		verify(associatedServiceRepository).findById(code);
 		assertFalse(actualService.isPresent());
+	}
+
+	@Test
+	public void testAddParam() {
+		String id = "1";
+		AssociatedServiceParam param = new AssociatedServiceParam();
+		AssocietadService associatedService = new AssocietadService();
+		associatedService.setId(id);
+		when(associatedServiceRepository.findById(id)).thenReturn(Optional.of(associatedService));
+		associatedServiceService.addParam(id, param);
+		verify(associatedServiceRepository).save(associatedService);
+		assertEquals(1, associatedService.getParams().size());
+		AssociatedServiceParam firstParam = associatedService.getParams().get(0);
+		assertEquals(param, firstParam);
+	}
+
+	@Test
+	public void testAddParam_notFound() {
+		String id = "1";
+		AssociatedServiceParam param = new AssociatedServiceParam();
+		when(associatedServiceRepository.findById(id)).thenReturn(Optional.empty());
+		try {
+			associatedServiceService.addParam(id, param);
+			fail();
+		} catch (RuntimeException e) {
+			assertEquals("no existe el servicio asociado", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testAddAccount() {
+		String id = "1";
+		AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
+		AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
+		List<AccountAssociatedServiceParam> listAccount = new ArrayList<>();
+		listAccount.add(new AccountAssociatedServiceParam());
+		param.setAccount(listAccount);
+		List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
+		AssocietadService service = associatedServiceMock.mockAssocietadService(serviceParams);
+		when(associatedServiceRepository.findById(id)).thenReturn(Optional.of(service));
+		associatedServiceService.addAccount(id, param);
+		verify(associatedServiceRepository).save(service);
+		assertEquals(2, param.getAccount().size());
+		AccountAssociatedServiceParam actualAccountParam = param.getAccount().get(1);
+		assertEquals(null, actualAccountParam.getCodeAccount());
+		assertEquals(null, actualAccountParam.getStatus());
+		assertEquals(null, actualAccountParam.getTextValue());
+	}
+
+	@Test
+	public void testAddAccount_ServiceNotFound() {
+		String id = "1";
+		AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
+		AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
+		when(associatedServiceRepository.findById(id)).thenReturn(Optional.empty());
+		associatedServiceService.addAccount(id, param);
 	}
 
 }
