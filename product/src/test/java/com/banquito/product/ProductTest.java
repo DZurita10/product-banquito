@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import com.banquito.product.associated_service.model.AssocietadService;
 import com.banquito.product.product.controller.dto.request.ProductRQ;
 import com.banquito.product.product.controller.mapper.ProductMapperSave;
 import com.banquito.product.product.model.AssociatedServiceProduct;
