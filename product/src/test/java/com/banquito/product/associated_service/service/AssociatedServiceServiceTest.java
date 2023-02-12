@@ -1,6 +1,7 @@
 package com.banquito.product.associated_service.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -111,6 +112,15 @@ public class AssociatedServiceServiceTest {
 		verify(associatedServiceRepository).findById(code);
 		assertTrue(actualService.isPresent());
 		assertEquals(expectedService, actualService.get());
+	}
+
+	@Test
+	public void testFindByCode_NotFound() {
+		String code = "NotExistingId";
+		when(associatedServiceRepository.findById(code)).thenReturn(Optional.empty());
+		Optional<AssocietadService> actualService = associatedServiceService.findByCode(code);
+		verify(associatedServiceRepository).findById(code);
+		assertFalse(actualService.isPresent());
 	}
 
 }
