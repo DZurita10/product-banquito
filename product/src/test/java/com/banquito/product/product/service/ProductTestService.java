@@ -1,7 +1,9 @@
 package com.banquito.product.product.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -15,6 +17,8 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.banquito.product.mock.ProductServiceMock;
+import com.banquito.product.mock.AssociatedServiceServiceProductMock;
+import com.banquito.product.product.model.AssociatedServiceProduct;
 import com.banquito.product.product.model.Product;
 import com.banquito.product.product.repository.ProductRepository;
 
@@ -29,100 +33,97 @@ public class ProductTestService {
 
     @Test
     public void givenListOfProducts_whenFindAllProducts_thenReturnListOfProducts() {
-        // given
         List<Product> products = ProductServiceMock.mockListOfProducts();
-        // when
         when(this.productRepository.findAll()).thenReturn(products);
-        // then
+        // Action
         List<Product> response = this.productService.findAll();
-
-        verify(this.productRepository, times(1)).findAll();
+        // Assert
         assertEquals(products, response);
     }
 
     @Test
     public void givenProduct_whenFindByIdProduct_thenReturnProduct() {
-        // given
         String _id = "12345";
-        Product product = ProductServiceMock.mockProduct(Optional.of("12345"), Optional.empty(), Optional.of("ACTIVE"));
-        // when
-        when(this.productRepository.findById(_id)).thenReturn(Optional.of(product));
-        // then
-        Product response = this.productService.findById(_id);
-
-        verify(this.productRepository, times(1)).findById(_id);
-        assertEquals(product, response);
+        Optional<Product> optionalProduct = ProductServiceMock.mockOptionalProduct();
+        Product expected = optionalProduct.get();
+        when(this.productRepository.findById(any(String.class))).thenReturn(optionalProduct);
+        // Action
+        Product actual = this.productService.findById(_id);
+        // Assert
+        assertEquals(expected, actual);
     }
 
     @Test
     public void givenProduct_whenFindByNameProduct_thenReturnProduct() {
-        // given
         String name = "Ahorro";
-        Product product = ProductServiceMock.mockProduct(Optional.of("12345"), Optional.of("Ahorro"),
-                Optional.of("ACTIVE"));
-        // when
-        when(this.productRepository.findByName(name)).thenReturn(product);
-        // then
-        Product response = this.productService.findByName(name);
-
-        verify(this.productRepository, times(1)).findByName(name);
-        assertEquals(product, response);
+        Product mocked = ProductServiceMock.mockProduct(Optional.empty(), Optional.empty(), Optional.empty());
+        Product expected = mocked;
+        when(this.productRepository.findByName(any(String.class))).thenReturn(mocked);
+        // Action
+        Product actual = this.productService.findByName(name);
+        // Assert
+        assertEquals(expected, actual);
     }
 
     @Test
     public void givenListOfProducts_whenFindByStatusProducts_thenReturnListOfProducts() {
-        // given
         String status = "ACTIVE";
-        List<Product> products = ProductServiceMock.mockListOfProducts();
-        List<Product> expected = products.stream().filter(product -> product.getStatus().equals(status)).toList();
-        // when
-        when(this.productRepository.findByStatus(status)).thenReturn(expected);
-        // then
-        List<Product> response = this.productService.findByStatus(status);
-
-        verify(this.productRepository, times(1)).findByStatus(status);
-        assertEquals(expected.size(), response.size());
+        List<Product> mocked = ProductServiceMock.mockListOfProducts().stream().filter(product -> product.getStatus().equals(status)).toList();
+        List<Product> expected = mocked.stream().filter(product -> product.getStatus().equals(status)).toList();
+        when(this.productRepository.findByStatus(status)).thenReturn(mocked);
+        // Action
+        List<Product> actual = this.productService.findByStatus(status);
+        // Assert
+        assertEquals(expected, actual);
     }
 
     @Test
-    public void givenProduct_whenSaveProduct_thenString() {
-        // given
+    public void givenProduct_whenSaveProduct_thenString() throws Exception {
+        Product expect = ProductServiceMock.mockProduct(Optional.empty(), Optional.empty(), Optional.empty());
         Product product = ProductServiceMock.mockProduct(Optional.empty(), Optional.empty(), Optional.empty());
         ArgumentCaptor<Product> argument = ArgumentCaptor.forClass(Product.class);
-        // when
+        // Action
         this.productService.saveProduct(product);
-        // then
-        verify(this.productRepository, times(1)).save(argument.capture());
-        assertEquals(product, argument.getValue());
+        // Assert
+        verify(this.productRepository).save(argument.capture());
+        Product actual = argument.getValue();
+        assertEquals(expect, actual);
     }
 
     @Test
     public void givenProduct_whenUpdateProduct_thenString() {
-        // given
         String status = "INACTIVE";
+        Product expected = ProductServiceMock.mockProduct(Optional.empty(), Optional.empty(), Optional.empty());
+        expected.setStatus(status);
+
         Product product = ProductServiceMock.mockProduct(Optional.empty(), Optional.empty(), Optional.empty());
         ArgumentCaptor<Product> argument = ArgumentCaptor.forClass(Product.class);
-        // when
-        when(this.productRepository.findByName(product.getName())).thenReturn(product);
+
+        when(this.productRepository.findByName(any(String.class))).thenReturn(product);
+        // Action
         this.productService.updateProduct(status, product);
-        // then
-        verify(this.productRepository, times(1)).findByName(product.getName());
-        verify(this.productRepository, times(1)).save(argument.capture());
-        assertEquals(status, argument.getValue().getStatus());
+        // Assert
+        verify(this.productRepository).save(argument.capture());
+        assertEquals(expected.getStatus(), argument.getValue().getStatus());
     }
 
-/*     @Test
+    @Test
     public void givenProduct_whenProductValidate_thenString() {
-        // given
-        Product product = ProductServiceMock.mockProduct(Optional.empty(), Optional.empty(), Optional.empty());
-        // when
-        when(this.productRepository.findById(_id)).thenReturn(Optional.of(product));
-        // then
+        List<Product> products = List.of(ProductServiceMock.mockListOfProducts().get(0));
+        List<AssociatedServiceProduct> associatedServiceProducts = List
+                .of(AssociatedServiceServiceProductMock.mockListOfAssociatedService().get(0));
+        Product expected = products.get(0);
+        ArgumentCaptor<Product> argument = ArgumentCaptor.forClass(Product.class);
+
+        expected.getAssociatedService().add(associatedServiceProducts.get(0));
+        when(this.productRepository.findById(any(String.class))).thenReturn(Optional.of(products.get(0)));
+        verify(this.productRepository).save(argument.capture());
+        // Action
         this.productService.linkAssociatedServices(products, associatedServiceProducts);
-        verify(this.productRepository, times(products.size())).save(argument.ca);
-        assertEquals(status, argument.getValue().getStatus());
+        // Assert
+        assertEquals(expected, argument.getValue());
     }
- */
+
     /*
      * @Test
      * public void givenProduct_whenLinkAssociatedServices_thenString() {

@@ -44,6 +44,10 @@ public class ProductServiceMock {
                 .build();
     }
 
+    public static Optional<Product> mockOptionalProduct() {
+        return Optional.of(mockProduct(Optional.empty(), Optional.empty(), Optional.empty()));
+    }
+
     public static List<Product> mockListOfProducts() {
         List<Product> products = new ArrayList<>();
         products.add(mockProduct(Optional.of("12345"), Optional.empty(), Optional.of("ACTIVE")));
