@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.banquito.product.mock.InterestRateMock;
 import com.banquito.product.product.model.InterestRate;
 import com.banquito.product.product.repository.InterestRateRepository;
 import com.banquito.product.product.service.InterestRateService;
@@ -27,14 +28,13 @@ public class InterestRateServiceTest {
 
 	@Test
 	public void testFindAll() {
-		InterestRate interestRate1 = InterestRate.builder().id("1").name("InterestRate1").type("Fixed").build();
-		InterestRate interestRate2 = InterestRate.builder().id("2").name("InterestRate2").type("Variable").build();
-		List<InterestRate> expectedInterestRates = Arrays.asList(interestRate1, interestRate2);
+		InterestRateMock interestRateMock = new InterestRateMock();
+		InterestRate interestRateMock1 = interestRateMock.mockInterestRate("1", "InterestRate1", "Fixed");
+		InterestRate interestRateMock2 = interestRateMock.mockInterestRate("2", "InterestRate2", "Variable");
 
+		List<InterestRate> expectedInterestRates = Arrays.asList(interestRateMock1, interestRateMock2);
 		when(interestRateRepository.findAll()).thenReturn(expectedInterestRates);
-
 		List<InterestRate> actualInterestRates = interestRateService.findAll();
-
 		assertEquals(expectedInterestRates, actualInterestRates);
 	}
 
