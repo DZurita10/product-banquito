@@ -34,33 +34,37 @@ public class AssocietadServiceService {
         }
     }
 
-    public List<AssociatedServiceParam> findParamsByServiceName (String name){
+    public List<AssociatedServiceParam> findParamsByServiceName(String name) {
         List<AssocietadService> service = this.associatedRepository.findByName(name);
         return service.get(0).getParams();
     }
 
-    public void setAccountServiceParams(String serviceName, List<ParamRQ> params, String accountNum){
-        /* System.out.println("el id>");
-        System.out.println(serviceId);
-        System.out.println("el account>");
-        System.out.println(accountNum);
-        System.out.println("el params>");
-        System.out.println(params.get(0).getValue().getClass()); */
+    public void setAccountServiceParams(String serviceName, List<ParamRQ> params, String accountNum) {
+        /*
+         * System.out.println("el id>");
+         * System.out.println(serviceId);
+         * System.out.println("el account>");
+         * System.out.println(accountNum);
+         * System.out.println("el params>");
+         * System.out.println(params.get(0).getValue().getClass());
+         */
         List<AssocietadService> serviceOpt = this.associatedRepository.findByName(serviceName);
-        if(serviceOpt == null) throw new RuntimeException("No existe el servicio asociado");
+        if (serviceOpt == null)
+            throw new RuntimeException("No existe el servicio asociado");
         else {
             AssocietadService service = serviceOpt.get(0);
             List<AssociatedServiceParam> listParams = service.getParams();
             List<AccountAssociatedServiceParam> actualAccountsParams;
             AccountAssociatedServiceParam accountParam;
-            for(ParamRQ paramRQ: params){
-                for(AssociatedServiceParam param : listParams){
-                    if(paramRQ.getName().equals(param.name)){
-                        accountParam = new AccountAssociatedServiceParam(accountNum, "ACT", paramRQ.getValue(), null, null, null, null);
+            for (ParamRQ paramRQ : params) {
+                for (AssociatedServiceParam param : listParams) {
+                    if (paramRQ.getName().equals(param.name)) {
+                        accountParam = new AccountAssociatedServiceParam(accountNum, "ACT", paramRQ.getValue(), null,
+                                null, null, null);
                         actualAccountsParams = param.getAccount();
                         actualAccountsParams.add(accountParam);
                         param.setAccount(actualAccountsParams);
-                        //break;
+                        // break;
                     }
                 }
             }
@@ -157,13 +161,13 @@ public class AssocietadServiceService {
                     if (params.getName().equals(param.getName())) {
                         System.err.println("entro");
 
-                        if (params.getAccount()==null) {
+                        if (params.getAccount() == null) {
                             System.err.println("entro2");
                             List<AccountAssociatedServiceParam> listAccount = new ArrayList<>();
-                            for(AccountAssociatedServiceParam paramAux : param.getAccount()){
+                            for (AccountAssociatedServiceParam paramAux : param.getAccount()) {
                                 listAccount.add(paramAux);
                             }
-                            //listAccount.add(param.getAccount().get(0));
+                            // listAccount.add(param.getAccount().get(0));
                             params.setAccount(listAccount);
                         } else {
                             System.err.println("entro3");
