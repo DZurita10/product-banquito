@@ -1,7 +1,6 @@
 package com.banquito.product.associated_service.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
