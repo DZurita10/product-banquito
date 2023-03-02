@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Document(collection = "requestService")
 public class RequestService {
-    
+
     @Id
     private String id;
 
@@ -34,6 +34,18 @@ public class RequestService {
     private LocalDateTime endDate;
 
     private String nameAssociatedService;
+
+    public RequestService(String id, String codeRequest, String accountNumber, String fullName, Boolean status,
+            LocalDateTime startDate, LocalDateTime endDate, String nameAssociatedService) {
+        this.id = id;
+        this.codeRequest = codeRequest;
+        this.accountNumber = accountNumber;
+        this.fullName = fullName;
+        this.status = status;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.nameAssociatedService = nameAssociatedService;
+    }
 
     @Version
     private Long version;
