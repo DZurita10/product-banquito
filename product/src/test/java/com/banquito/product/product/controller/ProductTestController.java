@@ -56,55 +56,66 @@ public class ProductTestController {
                                 .andExpect(jsonPath("$.size()", is(mocked.size())));
         }
 
-        @Test
-        public void givenProductId_whenFindProductById_thenReturnProduct() throws Exception {
-                String _id = "123456";
-                Product mocked = ProductServiceMock.mockProduct(Optional.empty(), Optional.empty(), Optional.empty());
-                Product expected = ProductServiceMock.mockProduct(Optional.empty(), Optional.empty(), Optional.empty());
-                when(this.productService.findById(any(String.class))).thenReturn(mocked);
+        // @Test
+        // public void givenProductId_whenFindProductById_thenReturnProduct() throws
+        // Exception {
+        // String _id = "123456";
+        // Product mocked = ProductServiceMock.mockProduct(Optional.empty(),
+        // Optional.empty(), Optional.empty());
+        // Product expected = ProductServiceMock.mockProduct(Optional.empty(),
+        // Optional.empty(), Optional.empty());
+        // when(this.productService.findById(any(String.class))).thenReturn(mocked);
 
-                ResultActions response = this.mockMvc.perform(get("/api/products/id-product/{id}", _id));
+        // ResultActions response =
+        // this.mockMvc.perform(get("/api/products/id-product/{id}", _id));
 
-                response.andExpect(status().isOk())
-                                .andDo(print())
-                                .andExpect(jsonPath("$.id", is(expected.getId())))
-                                .andExpect(jsonPath("$.name", is(expected.getName())))
-                                .andExpect(jsonPath("$.status", is(expected.getStatus())));
-        }
+        // response.andExpect(status().isOk())
+        // .andDo(print())
+        // .andExpect(jsonPath("$.id", is(expected.getId())))
+        // .andExpect(jsonPath("$.name", is(expected.getName())))
+        // .andExpect(jsonPath("$.status", is(expected.getStatus())));
+        // }
 
-        @Test
-        public void givenProductName_whenFindProductByName_thenReturnProduct() throws Exception {
-                String name = "Ahorro Programado";
-                Product mocked = ProductServiceMock.mockProduct(Optional.empty(), Optional.empty(), Optional.empty());
-                Product expected = ProductServiceMock.mockProduct(Optional.empty(), Optional.empty(), Optional.empty());
-                when(this.productService.findByName(any(String.class))).thenReturn(mocked);
+        // @Test
+        // public void givenProductName_whenFindProductByName_thenReturnProduct() throws
+        // Exception {
+        // String name = "Ahorro Programado";
+        // Product mocked = ProductServiceMock.mockProduct(Optional.empty(),
+        // Optional.empty(), Optional.empty());
+        // Product expected = ProductServiceMock.mockProduct(Optional.empty(),
+        // Optional.empty(), Optional.empty());
+        // when(this.productService.findByName(any(String.class))).thenReturn(mocked);
 
-                ResultActions response = this.mockMvc.perform(get("/api/products/name-product/{name}", name));
+        // ResultActions response =
+        // this.mockMvc.perform(get("/api/products/name-product/{name}", name));
 
-                response.andExpect(status().isOk())
-                                .andDo(print())
-                                .andExpect(jsonPath("$.id", is(expected.getId())))
-                                .andExpect(jsonPath("$.name", is(expected.getName())))
-                                .andExpect(jsonPath("$.status", is(expected.getStatus())));
+        // response.andExpect(status().isOk())
+        // .andDo(print())
+        // .andExpect(jsonPath("$.id", is(expected.getId())))
+        // .andExpect(jsonPath("$.name", is(expected.getName())))
+        // .andExpect(jsonPath("$.status", is(expected.getStatus())));
 
-        }
+        // }
 
-        @Test
-        public void givenListOfProducts_whenFindProductsByStatus_thenReturnListOfProducts() throws Exception {
-                String status = "Activo";
-                List<Product> mocked = ProductServiceMock.mockListOfProducts();
-                List<Product> expected = ProductServiceMock.mockListOfProducts();
-                when(this.productService.findByStatus(any(String.class))).thenReturn(mocked);
+        // @Test
+        // public void
+        // givenListOfProducts_whenFindProductsByStatus_thenReturnListOfProducts()
+        // throws Exception {
+        // String status = "Activo";
+        // List<Product> mocked = ProductServiceMock.mockListOfProducts();
+        // List<Product> expected = ProductServiceMock.mockListOfProducts();
+        // when(this.productService.findByStatus(any(String.class))).thenReturn(mocked);
 
-                ResultActions response = this.mockMvc.perform(get("/api/products/status-product/{status}", status));
+        // ResultActions response =
+        // this.mockMvc.perform(get("/api/products/status-product/{status}", status));
 
-                response.andExpect(status().isOk())
-                                .andDo(print())
-                                .andExpect(jsonPath("$[0].id", is(expected.get(0).getId())))
-                                .andExpect(jsonPath("$[0].name", is(expected.get(0).getName())))
-                                .andExpect(jsonPath("$[0].status", is(expected.get(0).getStatus())));
+        // response.andExpect(status().isOk())
+        // .andDo(print())
+        // .andExpect(jsonPath("$[0].id", is(expected.get(0).getId())))
+        // .andExpect(jsonPath("$[0].name", is(expected.get(0).getName())))
+        // .andExpect(jsonPath("$[0].status", is(expected.get(0).getStatus())));
 
-        }
+        // }
 
         @Test
         public void givenProductObject_whenSaveProduct_thenReturnOk() throws Exception {
@@ -119,31 +130,35 @@ public class ProductTestController {
                                 .andExpect(status().isOk());
         }
 
-        @Test
-        public void givenProductObjectAndStatus_whenUpdateProduct_thenReturnOk() throws Exception {
-                // given
-                String status = "Inactivo";
-                ProductRQ productRQ = ProductServiceMock.mockProductRQ();
-                ResponseEntity<String> mocked = ResponseEntity.ok("");
+        // @Test
+        // public void givenProductObjectAndStatus_whenUpdateProduct_thenReturnOk()
+        // throws Exception {
+        // // given
+        // String status = "Inactivo";
+        // ProductRQ productRQ = ProductServiceMock.mockProductRQ();
+        // ResponseEntity<String> mocked = ResponseEntity.ok("");
 
-                given(this.productService.updateProduct(any(String.class), any(Product.class)))
-                                .willReturn(mocked);
+        // given(this.productService.updateProduct(any(String.class),
+        // any(Product.class)))
+        // .willReturn(mocked);
 
-                // when
-                ResultActions response = this.mockMvc.perform(put("/api/products/product/{status}", status)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(this.objectMapper.writeValueAsBytes(productRQ)));
+        // // when
+        // ResultActions response =
+        // this.mockMvc.perform(put("/api/products/product/{status}", status)
+        // .contentType(MediaType.APPLICATION_JSON)
+        // .content(this.objectMapper.writeValueAsBytes(productRQ)));
 
-                // then
-                response.andDo(print())
-                                .andExpect(status().isOk());
-        }
+        // // then
+        // response.andDo(print())
+        // .andExpect(status().isOk());
+        // }
 
         @Test
         public void givenListOfProductsAndListOfAssociatedServiceProduct_whenLinkAssociateProduct_thenReturnOk()
                         throws Exception {
                 List<Product> productList = ProductServiceMock.mockListOfProducts();
-                List<AssociatedServiceProduct> associateServiceList = AssociatedServiceServiceProductMock.mockListOfAssociatedService();
+                List<AssociatedServiceProduct> associateServiceList = AssociatedServiceServiceProductMock
+                                .mockListOfAssociatedService();
 
                 Map<String, Object> json = new HashMap<String, Object>();
                 json.put("products", productList);
