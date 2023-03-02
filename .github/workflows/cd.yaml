@@ -41,4 +41,4 @@ jobs:
         script: |
           docker stop product-banquito || true
           docker rm product-banquito || true
-          docker run --rm -d --name product-banquito -p 84:84 ${{ secrets.DOCKERHUB_USERNAME }}/product-banquito:${{ github.sha }}
+          docker run --rm -d --name product-banquito -p 79:79 ${{ secrets.DOCKERHUB_USERNAME }}/product-banquito:${{ github.sha }}
