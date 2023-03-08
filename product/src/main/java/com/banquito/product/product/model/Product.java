@@ -23,6 +23,7 @@ public class Product {
     private String status;
     private Date startDate;
     private Date endDate;
+    private String capitalization;
     private String temporalyAccountState;
     private String useCheckbook;
     private String allowTransference;
@@ -38,15 +39,16 @@ public class Product {
     public Product() {
     }
 
-    public Product(String id, String name, String status, Date startDate, Date endDate, String temporalyAccountState,
-            String useCheckbook, String allowTransference, String typeClient, String minOpeningBalance,
-            InterestRateProduct interestRate, List<AssociatedServiceProduct> associatedService,
-            ProductTypeModel productType, Long version) {
+    public Product(String id, String name, String status, Date startDate, Date endDate, String capitalization,
+            String temporalyAccountState, String useCheckbook, String allowTransference, String typeClient,
+            String minOpeningBalance, InterestRateProduct interestRate,
+            List<AssociatedServiceProduct> associatedService, ProductTypeModel productType, Long version) {
         this.id = id;
         this.name = name;
         this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.capitalization = capitalization;
         this.temporalyAccountState = temporalyAccountState;
         this.useCheckbook = useCheckbook;
         this.allowTransference = allowTransference;
@@ -58,5 +60,4 @@ public class Product {
         this.version = version;
     }
 
-    
 }

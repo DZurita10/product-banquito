@@ -53,7 +53,7 @@ public class ProductController {
 
         //se ajusta el: interes, capitalizacion y calculo base
         //(datos ubicados en tablas externas a product)
-        String interest, capitalization, baseCalc;
+        String interest, baseCalc;
         InterestRate interestObj;
         for(ProductRSInterest prod : productRs){
             //1. se obtiene los datos
@@ -64,16 +64,13 @@ public class ProductController {
             }else {
                 interestObj = interestService.findByName(prod.getInterest()).get(0);
                 interest = interestObj.getInterestRateLogs().get(interestObj.getInterestRateLogs().size()-1).getValue().toString();
-                baseCalc = interestObj.getCalcBase();    
+                baseCalc = interestObj.getCalcBase();
             }
-                //capitalizacion - no hay xd
-            capitalization = "Mensual";
- 
             //2. se colocan los valores en el response
             prod.setInterest(interest);
-            prod.setCapitalization(capitalization);
             prod.setBaseCalc(baseCalc);
         }
+
         return productRs;
     }
 
