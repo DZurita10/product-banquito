@@ -25,7 +25,7 @@ public class ProductMapper {
                 .name(product.getName())
                 .productType(product.getProductType().getName())
                 .interest(product.getInterestRate().getName())
-                .capitalization("")
+                .capitalization(product.getCapitalization())
                 .baseCalc("")
                 .build()).collect(Collectors.toList());
 
