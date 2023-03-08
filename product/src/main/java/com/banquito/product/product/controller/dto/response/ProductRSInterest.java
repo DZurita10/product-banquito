@@ -10,6 +10,7 @@ import lombok.Data;
 public class ProductRSInterest implements Serializable{
     private String id;
     private String name;
+    private String productType;
     private String interest;
     private String capitalization;
     private String baseCalc;

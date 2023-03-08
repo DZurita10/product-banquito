@@ -20,9 +20,10 @@ public class ProductMapper {
         return productRS;
     }
     public static List<ProductRSInterest> toProductRSinterest(List<Product> products) {
-        List<ProductRSInterest> productRS = products.stream().map(product -> ProductsRSInterst.builder()
+        List<ProductRSInterest> productRS = products.stream().map(product -> ProductRSInterest.builder()
                 .id(product.getId())
                 .name(product.getName())
+                .productType(product.getProductType().getName())
                 .interest(product.getInterestRate().getName())
                 .capitalization("")
                 .baseCalc("")
