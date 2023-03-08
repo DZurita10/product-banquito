@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.banquito.product.product.controller.dto.response.ProductRS;
+import com.banquito.product.product.controller.dto.response.ProductRSInterest;
 import com.banquito.product.product.model.Product;
 
 public class ProductMapper {
@@ -14,6 +15,17 @@ public class ProductMapper {
                 .status(product.getStatus())
                 .productType(product.getProductType())
                 .associatedService(product.getAssociatedService())
+                .build()).collect(Collectors.toList());
+
+        return productRS;
+    }
+    public static List<ProductRSInterest> toProductRSinterest(List<Product> products) {
+        List<ProductRSInterest> productRS = products.stream().map(product -> ProductsRSInterst.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .interest(product.getInterestRate().getName())
+                .capitalization("")
+                .baseCalc("")
                 .build()).collect(Collectors.toList());
 
         return productRS;
