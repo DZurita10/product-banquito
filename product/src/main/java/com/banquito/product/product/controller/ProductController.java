@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.banquito.product.product.controller.dto.request.ProductRQ;
 import com.banquito.product.product.controller.dto.response.ProductRS;
+import com.banquito.product.product.controller.dto.response.ProductRSInterest;
 import com.banquito.product.product.controller.mapper.ProductMapper;
 import com.banquito.product.product.controller.mapper.ProductMapperSave;
 import com.banquito.product.product.model.AssociatedServiceProduct;
+import com.banquito.product.product.model.InterestRate;
 import com.banquito.product.product.model.Product;
+import com.banquito.product.product.service.InterestRateService;
 import com.banquito.product.product.service.ProductService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,9 +37,44 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductController {
 
     private final ProductService productService;
+    private final InterestRateService interestService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, InterestRateService interestService) {
         this.productService = productService;
+        this.interestService = interestService;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<ProductRSInterest> findAllProductRSInterest() {
+        List<Product> product = productService.findAll();
+        List<ProductRSInterest> productRs = new ArrayList<>();
+        productRs = ProductMapper.toProductRSinterest(product);
+
+        //se ajusta el: interes, capitalizacion y calculo base
+        //(datos ubicados en tablas externas a product)
+        String interest, capitalization, baseCalc;
+        InterestRate interestObj;
+        for(ProductRSInterest prod : productRs){
+            //1. se obtiene los datos
+                //interes y calculo base
+            if(interestService.findByName(prod.getInterest()).isEmpty()){
+                interest = "-";
+                baseCalc = "360";
+            }else {
+                interestObj = interestService.findByName(prod.getInterest()).get(0);
+                interest = interestObj.getInterestRateLogs().get(interestObj.getInterestRateLogs().size()-1).getValue().toString();
+                baseCalc = interestObj.getCalcBase();    
+            }
+                //capitalizacion - no hay xd
+            capitalization = "Mensual";
+ 
+            //2. se colocan los valores en el response
+            prod.setInterest(interest);
+            prod.setCapitalization(capitalization);
+            prod.setBaseCalc(baseCalc);
+        }
+        return productRs;
     }
 
     @ResponseBody
