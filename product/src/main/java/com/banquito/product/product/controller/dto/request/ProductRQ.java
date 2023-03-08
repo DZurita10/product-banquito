@@ -18,6 +18,7 @@ public class ProductRQ implements Serializable {
     private String status;
     private Date startDate;
     private Date endDate;
+    private String capitalization;
     private String temporalyAccountState;
     private String useCheckbook;
     private String allowTransference;

@@ -11,6 +11,7 @@ public class ProductMapperSave {
                 .status(productRQ.getStatus())
                 .startDate(productRQ.getStartDate())
                 .endDate(productRQ.getEndDate())
+                .capitalization(productRQ.getCapitalization())
                 .temporalyAccountState(productRQ.getTemporalyAccountState())
                 .useCheckbook(productRQ.getUseCheckbook())
                 .allowTransference(productRQ.getAllowTransference())
