@@ -39,4 +39,15 @@ public class AssociatedServiceMock {
         serviceParams.add(param);
         return serviceParams;
     }
+
+    public AssocietadService mockAssocietedServiceAccount(List<AssociatedServiceParam> serviceParams) {
+        String serviceName = "Servicio";
+        List<AccountAssociatedServiceParam> accounts = new ArrayList<>();
+        AssocietadService service = new AssocietadService();
+        service.setName(serviceName);
+        service.setParams(serviceParams);
+        service.setAccounts(accounts);
+        service.setId("Id159");
+        return service;
+    }
 }

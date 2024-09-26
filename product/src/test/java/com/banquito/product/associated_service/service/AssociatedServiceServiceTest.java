@@ -181,4 +181,60 @@ public class AssociatedServiceServiceTest {
 		associatedServiceService.addAccount(id, param);
 	}
 
+	@Test
+	public void testFindAllAssociatedServices() {
+		List<AssocietadService> expectedServices = new ArrayList<>();
+		AssocietadService service1 = new AssocietadService();
+		service1.setName("Servicio 1");
+		service1.setId("Id001");
+		expectedServices.add(service1);
+		AssocietadService service2 = new AssocietadService();
+		service2.setName("Servicio 2");
+		service2.setId("Id002");
+		expectedServices.add(service2);
+
+		when(associatedServiceRepository.findAll()).thenReturn(expectedServices);
+
+		List<AssocietadService> actualServices = associatedServiceService.findAllAssociatedServices();
+
+		verify(associatedServiceRepository, times(1)).findAll();
+		assertEquals(expectedServices, actualServices);
+	}
+
+	@Test
+	public void testCrearAssociatedService() {
+		AssociatedServiceMock associatedServiceMock = new AssociatedServiceMock();
+		AssociatedServiceParam param = associatedServiceMock.mockAssociatedServiceParam("Parámetro", "Tipo de valor");
+		List<AssociatedServiceParam> serviceParams = associatedServiceMock.mockListAssociatedServiceParam(param);
+		AssocietadService service = associatedServiceMock.mockAssocietedServiceAccount(serviceParams);
+		ArgumentCaptor<AssocietadService> argument = ArgumentCaptor.forClass(AssocietadService.class);
+
+		associatedServiceService.crearAssociatedService(service);
+
+		verify(associatedServiceRepository, times(1)).save(argument.capture());
+		AssocietadService savedService = argument.getValue();
+		assertEquals(service, savedService);
+		assertEquals(service.getAccounts(), savedService.getAccounts());
+	}
+
+	@Test
+public void testFindParamsByServiceName() {
+    String serviceName = "Servicio 1";
+    AssociatedServiceParam param1 = new AssociatedServiceParam();
+    param1.setName("Param 1");
+    AssociatedServiceParam param2 = new AssociatedServiceParam();
+    param2.setName("Param 2");
+    List<AssociatedServiceParam> expectedParams = Arrays.asList(param1, param2);
+    AssocietadService expectedService = new AssocietadService();
+    expectedService.setName(serviceName);
+    expectedService.setParams(expectedParams);
+    List<AssocietadService> expectedServices = Arrays.asList(expectedService);
+
+    when(associatedServiceRepository.findByName(serviceName)).thenReturn(expectedServices);
+
+    List<AssociatedServiceParam> actualParams = associatedServiceService.findParamsByServiceName(serviceName);
+
+    assertEquals(expectedParams, actualParams);
+    verify(associatedServiceRepository, times(1)).findByName(serviceName);
+}
 }
